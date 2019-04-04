@@ -4,7 +4,6 @@ import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as path from 'path';
-import * as favicon from 'serve-favicon';
 import * as cors from 'cors';
 
 import { userRoutes } from '@app/controllers';
@@ -30,7 +29,6 @@ export class Index {
    * Middlewares
    */
   private middlewares(): void {
-    // this.app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     this.app.use(cors({ credentials: true, origin: true }));
     
     this.app.use(logger('dev'));
