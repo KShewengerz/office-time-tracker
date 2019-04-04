@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { HttpStatusCode, EmployeeTable } from '@app/enums';
 import { Employee } from '@app/interfaces';
 import { db } from '@app/config/knex';
+import { ErrorMessageHandler } from '../../helpers/error-message-handler';
 
 const snakeCase = require('snakecase-keys');
 const camelCase = require('camelcase-keys');
@@ -19,13 +20,13 @@ const camelCase = require('camelcase-keys');
  * @returns {Promise<void>}
  */
 export async function addEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
-  const body = snakeCase(req.body);
+  const body  = snakeCase(req.body);
   
   await db(EmployeeTable.Table)
     .insert(body)
-    .catch(err => err);
+    .catch(err => ErrorMessageHandler.error(res, err) );
   
-  res.sendStatus(HttpStatusCode.CREATED);
+  if (res.statusCode !== HttpStatusCode.BAD_REQUEST) res.sendStatus(HttpStatusCode.CREATED);
 }
 
 
