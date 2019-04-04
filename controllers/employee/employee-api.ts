@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 
 /**
- * Adds new user
+ * Adds new employee
  * @api {post} /user
  *
  * @param {Request} req
@@ -11,13 +11,13 @@ import { Request, Response, NextFunction } from "express";
  *
  * @returns {Promise<void>}
  */
-export function addUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Successfully Added User");
+export function addEmployee(req: Request, res: Response, next: NextFunction) {
+  res.json("Successfully Added Employee");
 }
 
 
 /**
- * Update user's information
+ * Update employee's information
  * @api {put} /user
  *
  * @param {Request} req
@@ -27,13 +27,13 @@ export function addUser(req: Request, res: Response, next: NextFunction) {
  * @returns {Promise<void>}
  */
 
-export function updateUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Successfully Updated User");
+export function updateEmployee(req: Request, res: Response, next: NextFunction) {
+  res.json("Successfully Updated Employee");
 }
 
 
 /**
- * Fetches all users
+ * Fetches all employee
  * @api {get} /user
  *
  * @apiParam {Uuid} id
@@ -44,13 +44,13 @@ export function updateUser(req: Request, res: Response, next: NextFunction) {
  *
  * @returns {Promise<void>}
  */
-export function getUsers(req: Request, res: Response, next: NextFunction) {
+export function getEmployees(req: Request, res: Response, next: NextFunction) {
   res.json("Successfully Get Users");
 }
 
 
 /**
- * Fetches user's record
+ * Fetches employee's record
  * @api {get} /user/:id
  *
  * @apiParam {Uuid} id
@@ -61,13 +61,13 @@ export function getUsers(req: Request, res: Response, next: NextFunction) {
  *
  * @returns {Promise<void>}
  */
-export function getUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Successfully Get User Info");
+export function getEmployee(req: Request, res: Response, next: NextFunction) {
+  res.json("Successfully Get Employee Info");
 }
 
 
 /**
- * Deletes user record by id
+ * Deletes employee's record by id
  * @api {delete} /user/:id
  *
  * @apiParam {Uuid} id
@@ -78,7 +78,7 @@ export function getUser(req: Request, res: Response, next: NextFunction) {
  *
  * @returns {Promise<void>}
  */
-export function deleteUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Successfully Deleted User");
+export function deleteEmployee(req: Request, res: Response, next: NextFunction) {
+  res.json("Successfully Deleted Employee");
 }
 

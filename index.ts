@@ -6,7 +6,7 @@ import * as logger from 'morgan';
 import * as path from 'path';
 import * as cors from 'cors';
 
-import { userRoutes } from '@app/controllers';
+import { employeeRoutes } from '@app/controllers';
 
 
 export class Index {
@@ -65,6 +65,6 @@ export class Index {
    * Api Routes
    */
   private routes(): void {
-    this.app.use('/user', userRoutes);
+    this.app.use('/employee', employeeRoutes);
   }
 }
