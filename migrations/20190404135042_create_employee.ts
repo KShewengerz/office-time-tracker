@@ -5,7 +5,7 @@ import { EmployeeTable } from '@app/enums';
 
 export async function up(knex: Knex) {
   return await knex.schema.createTable(EmployeeTable.Table, table => {
-    table.increments(EmployeeTable.Id).primary();
+    table.bigIncrements(EmployeeTable.Id).primary();
     table.string(EmployeeTable.Name).notNullable();
     table.dateTime(EmployeeTable.ClockIn);
     table.dateTime(EmployeeTable.ClockOut);
