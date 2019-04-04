@@ -10,7 +10,7 @@ const camelCase = require('camelcase-keys');
 
 /**
  * Adds new employee
- * @api {post} /user
+ * @api {post} /employee
  *
  * @param {Request} req
  * @param {Response} res
@@ -19,13 +19,19 @@ const camelCase = require('camelcase-keys');
  * @returns {Promise<void>}
  */
 export async function addEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
-  res.json("Successfully Added Employee");
+  const body = snakeCase(req.body);
+  
+  await db(EmployeeTable.Table)
+    .insert(body)
+    .catch(err => err);
+  
+  res.sendStatus(HttpStatusCode.CREATED);
 }
 
 
 /**
  * Update employee's information
- * @api {put} /user
+ * @api {put} /employee
  *
  * @param {Request} req
  * @param {Response} res
@@ -35,15 +41,23 @@ export async function addEmployee(req: Request, res: Response, next: NextFunctio
  */
 
 export async function updateEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
-  res.json("Successfully Updated Employee");
+  const id   = req.body.id;
+  const body = snakeCase(req.body);
+  
+  await db(EmployeeTable.Table)
+    .where({ id })
+    .update(body)
+    .catch(err => err);
+  
+  res.sendStatus(HttpStatusCode.OK);
 }
 
 
 /**
  * Fetches all employee
- * @api {get} /user
+ * @api {get} /employee
  *
- * @apiParam {Uuid} id
+ * @apiParam {number} id
  *
  * @param {Request} req
  * @param {Response} res
@@ -52,15 +66,18 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
  * @returns {Promise<void>}
  */
 export async function getEmployees(req: Request, res: Response, next: NextFunction): Promise<void> {
-  res.json("Successfully Get Users");
+  const employees          = await db(EmployeeTable.Table).select();
+  const result: Employee[] = camelCase(employees);
+  
+  res.json(result);
 }
 
 
 /**
  * Fetches employee's record
- * @api {get} /user/:id
+ * @api {get} /employee/:id
  *
- * @apiParam {Uuid} id
+ * @apiParam {number} id
  *
  * @param {Request} req
  * @param {Response} res
@@ -69,15 +86,19 @@ export async function getEmployees(req: Request, res: Response, next: NextFuncti
  * @returns {Promise<void>}
  */
 export async function getEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
-  res.json("Successfully Get Employee Info");
+  const id                = req.params.id;
+  const fetchEmployee     = await db(EmployeeTable.Table).where({ id });
+  const result: Employee  = camelCase(fetchEmployee);
+  
+  res.json(result);
 }
 
 
 /**
  * Deletes employee's record by id
- * @api {delete} /user/:id
+ * @api {delete} /employee/:id
  *
- * @apiParam {Uuid} id
+ * @apiParam {number} id
  *
  * @param {Request} req
  * @param {Response} res
@@ -86,7 +107,14 @@ export async function getEmployee(req: Request, res: Response, next: NextFunctio
  * @returns {Promise<void>}
  */
 export async function deleteEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
-  res.json("Successfully Deleted Employee");
+  const id = req.params.id;
+  
+  await db(EmployeeTable.Table)
+  .where({ id })
+  .del()
+  .catch(err => err);
+  
+  res.sendStatus(HttpStatusCode.NO_CONTENT);
 }
 
 
