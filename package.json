@@ -7,7 +7,9 @@
     "build": "npm install && cd ./public/ng-app && npm install",
     "ng-start": "cd ./public/ng-app && tsc && npm start",
     "express-start": "tsc-watch --onSuccess 'nodemon --exec babel-node ./bin/www'",
-    "start": "concurrently \"npm run express-start\"  \"npm run ng-start\""
+    "start": "concurrently \"npm run express-start\"  \"npm run ng-start\"",
+    "knex:latest": "babel-node --extensions '.ts' node_modules/.bin/knex migrate:latest --knexfile knexfile.ts",
+    "knex:rollback": "babel-node --extensions '.ts' node_modules/.bin/knex migrate:rollback --knexfile knexfile.ts"
   },
   "repository": {
     "type": "git",
