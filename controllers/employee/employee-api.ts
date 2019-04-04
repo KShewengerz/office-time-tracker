@@ -1,5 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 
+import { HttpStatusCode, EmployeeTable } from '@app/enums';
+import { Employee } from '@app/interfaces';
+import { db } from '@app/config/knex';
+
+const snakeCase = require('snakecase-keys');
+const camelCase = require('camelcase-keys');
+
 
 /**
  * Adds new employee
@@ -11,7 +18,7 @@ import { Request, Response, NextFunction } from "express";
  *
  * @returns {Promise<void>}
  */
-export function addEmployee(req: Request, res: Response, next: NextFunction) {
+export async function addEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
   res.json("Successfully Added Employee");
 }
 
@@ -27,7 +34,7 @@ export function addEmployee(req: Request, res: Response, next: NextFunction) {
  * @returns {Promise<void>}
  */
 
-export function updateEmployee(req: Request, res: Response, next: NextFunction) {
+export async function updateEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
   res.json("Successfully Updated Employee");
 }
 
@@ -44,7 +51,7 @@ export function updateEmployee(req: Request, res: Response, next: NextFunction) 
  *
  * @returns {Promise<void>}
  */
-export function getEmployees(req: Request, res: Response, next: NextFunction) {
+export async function getEmployees(req: Request, res: Response, next: NextFunction): Promise<void> {
   res.json("Successfully Get Users");
 }
 
@@ -61,7 +68,7 @@ export function getEmployees(req: Request, res: Response, next: NextFunction) {
  *
  * @returns {Promise<void>}
  */
-export function getEmployee(req: Request, res: Response, next: NextFunction) {
+export async function getEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
   res.json("Successfully Get Employee Info");
 }
 
@@ -78,7 +85,19 @@ export function getEmployee(req: Request, res: Response, next: NextFunction) {
  *
  * @returns {Promise<void>}
  */
-export function deleteEmployee(req: Request, res: Response, next: NextFunction) {
+export async function deleteEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
   res.json("Successfully Deleted Employee");
 }
 
+
+/**
+ * Mock employee's login
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
+export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const username =  req.body.username;
+  res.status(HttpStatusCode.OK).send({ username });
+}

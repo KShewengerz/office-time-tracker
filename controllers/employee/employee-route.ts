@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import * as api from "./employee-api";
+import * as api from './employee-api';
 
 
 const router: Router = Router();
@@ -9,19 +9,19 @@ const router: Router = Router();
 /**
  * Adds new employee
  */
-router.post("/", api.addEmployee);
+router.post('/', api.addEmployee);
 
 
 /**
  * Update's employee information.
  */
-router.put("/", api.updateEmployee);
+router.put('/', api.updateEmployee);
 
 
 /**
  * Get All employees
  */
-router.get("/", api.getEmployees);
+router.get('/', api.getEmployees);
 
 /**
  * Get employee by id
@@ -29,7 +29,7 @@ router.get("/", api.getEmployees);
  * @param {number} id
  */
 
-router.get("/:id", api.getEmployee);
+router.get('/:id', api.getEmployee);
 
 
 /**
@@ -37,7 +37,14 @@ router.get("/:id", api.getEmployee);
  *
  * @param {number} id
  */
-router.delete("/:id", api.deleteEmployee);
+router.delete('/:id', api.deleteEmployee);
+
+
+/**
+ * Employee Login
+ */
+router.post('/login', api.login);
+
 
 
 export const employeeRoutes: Router = router;

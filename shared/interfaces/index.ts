@@ -1,1 +1,1 @@
-export * from './common/user';
+export * from './common/employee';
