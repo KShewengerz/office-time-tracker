@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import { compareSync } from 'bcrypt';
 
 import { HttpStatusCode, EmployeeTable } from '@app/enums';
 import { Employee } from '@app/interfaces';
-import { db } from '@app/config/knex';
-import { ErrorMessageHandler } from '../../helpers/error-message-handler';
+import { db } from '@app/config';
+import { ErrorMessageHandler } from '@app/helpers';
 
 const snakeCase = require('snakecase-keys');
 const camelCase = require('camelcase-keys');

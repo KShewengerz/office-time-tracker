@@ -8,6 +8,7 @@
       "root": ["./"],
       "alias": {
         "@app/config": ["./dist/config"],
+        "@app/helpers": ["./dist/helpers"],
         "@app/controllers": ["./dist/controllers"],
         "@app/interfaces": ["./dist/shared/interfaces"],
         "@app/enums": ["./dist/shared/enums"]

@@ -15,7 +15,8 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@app/*": ["./public/ng-app/src/app/*"],
-      "@app/config/*": ["config/*"],
+      "@app/config": ["config"],
+      "@app/helpers":  ["helpers"],
       "@app/controllers": ["controllers"],
       "@app/enums": ["shared/enums"],
       "@app/interfaces": ["shared/interfaces"],
