@@ -58,7 +58,7 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
     .catch(err => err);
   
   if (employee) ResponseHandler.response(res, HttpMethod.PUT, title, body);
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOTFOUND);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NotFound);
 }
 
 
@@ -81,7 +81,7 @@ export async function getEmployees(req: Request, res: Response, next: NextFuncti
     const result: Employee[] = camelCase(employees);
     ResponseHandler.response(res, HttpMethod.GET, title, result);
   }
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.EMPTY);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.Empty);
 }
 
 
@@ -105,7 +105,7 @@ export async function getEmployee(req: Request, res: Response, next: NextFunctio
     const result: Employee  = camelCase(employee);
     ResponseHandler.response(res, HttpMethod.GET, title, result);
   }
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOTFOUND);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NotFound);
 }
 
 
@@ -130,5 +130,5 @@ export async function deleteEmployee(req: Request, res: Response, next: NextFunc
     .catch(err => err);
   
   if (employee) ResponseHandler.response(res, HttpMethod.DEL, title, { id });
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOTFOUND);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NotFound);
 }

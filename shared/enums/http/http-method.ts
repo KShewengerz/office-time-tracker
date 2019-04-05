@@ -4,7 +4,3 @@ export enum HttpMethod {
   GET   = 'get',
   DEL   = 'del'
 }
-
-export enum CustomMethod {
-  LOGIN = 'login'
-}
