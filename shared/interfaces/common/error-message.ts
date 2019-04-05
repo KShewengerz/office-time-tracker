@@ -1,6 +1,4 @@
 export interface ErrorMessage {
-  status: number;
-  code: string;
+  statusCode: number;
   message: string;
-  developerMessage: string;
 }

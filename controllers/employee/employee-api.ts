@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import {NextFunction, Request, Response} from "express";
 
-import { HttpStatusCode, HttpMethod, EmployeeTable } from '@app/enums';
+import { EmployeeTable, ErrorType, HttpMethod, HttpStatusCode } from '@app/enums';
 import { Employee } from '@app/interfaces';
 import { db } from '@app/config';
 import { ErrorHandler, ResponseHandler } from '@app/helpers';
@@ -31,6 +31,7 @@ export async function addEmployee(req: Request, res: Response, next: NextFunctio
   if (res.statusCode !== HttpStatusCode.BAD_REQUEST) {
     const currentId = await db(EmployeeTable.Table).select(EmployeeTable.Id).orderBy(EmployeeTable.Id, 'desc').limit(1);
     body.id  = currentId[0].id;
+    
     ResponseHandler.response(res, HttpMethod.POST, title, body);
   }
 }
@@ -51,12 +52,13 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
   const id   = req.body.id;
   const body = snakeCase(req.body);
   
-  await db(EmployeeTable.Table)
+  const employee = await db(EmployeeTable.Table)
     .where({ id })
     .update(body)
     .catch(err => err);
   
-  ResponseHandler.response(res, HttpMethod.PUT, title, body);
+  if (employee) ResponseHandler.response(res, HttpMethod.PUT, title, body);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NotFound);
 }
 
 
@@ -74,9 +76,12 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
  */
 export async function getEmployees(req: Request, res: Response, next: NextFunction): Promise<void> {
   const employees          = await db(EmployeeTable.Table).select();
-  const result: Employee[] = camelCase(employees);
   
-  ResponseHandler.response(res, HttpMethod.GET, title, result);
+  if (employees.length) {
+    const result: Employee[] = camelCase(employees);
+    ResponseHandler.response(res, HttpMethod.GET, title, result);
+  }
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.Empty);
 }
 
 
@@ -93,11 +98,14 @@ export async function getEmployees(req: Request, res: Response, next: NextFuncti
  * @returns {Promise<void>}
  */
 export async function getEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
-  const id                = req.params.id;
-  const fetchEmployee     = await db(EmployeeTable.Table).where({ id });
-  const result: Employee  = camelCase(fetchEmployee);
+  const id        = req.params.id;
+  const employee  = await db(EmployeeTable.Table).where({ id });
   
-  ResponseHandler.response(res, HttpMethod.GET, title, result);
+  if (employee.length) {
+    const result: Employee  = camelCase(employee);
+    ResponseHandler.response(res, HttpMethod.GET, title, result);
+  }
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NotFound);
 }
 
 
@@ -116,10 +124,11 @@ export async function getEmployee(req: Request, res: Response, next: NextFunctio
 export async function deleteEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
   const id = req.params.id;
   
-  await db(EmployeeTable.Table)
+  const employee = await db(EmployeeTable.Table)
     .where({ id })
     .del()
     .catch(err => err);
   
-  ResponseHandler.response(res, HttpMethod.DEL, title, { id });
+  if (employee) ResponseHandler.response(res, HttpMethod.DEL, title, { id });
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NotFound);
 }

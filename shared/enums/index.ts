@@ -4,3 +4,4 @@ export * from './http/http-method';
 export * from './tables/employee';
 export * from './tables/admin';
 
+export * from './common/error-type';

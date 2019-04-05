@@ -1,33 +1,48 @@
 import { Response } from 'express';
+
 import { ErrorMessage } from '@app/interfaces';
-import { HttpStatusCode } from '@app/enums';
+import { HttpStatusCode, ErrorType } from '@app/enums';
 
 
 export class ErrorHandler {
   
-  static error(res: Response, { code, detail: message }): void {
-    const status                  = this.getHttpStatusCode(code);
-    const developerMessage        = this.getDeveloperMessage(message);
-    const response: ErrorMessage  = { status, code, message, developerMessage };
+  static error(res: Response, { code, detail }): void {
+    const statusCode = this.getPgStatusErrorCode(code);
+    const message    = this.extractDbErrorMessage(detail);
+    const response: ErrorMessage  = { statusCode, message };
     
-    res.status(status).send(response);
+    res.status(statusCode).send(response);
   }
   
-  static getHttpStatusCode(code: string): number {
-    return this.postgresErrorCodes[code];
+  static customError(res: Response, statusCode: HttpStatusCode, title: string, type: ErrorType) {
+    const message: string = this.getCustomErrorMessage(title, type);
+    const response: ErrorMessage   = { statusCode, message };
+    
+    res.status(statusCode).send(response);
   }
   
-  static getDeveloperMessage(message: string): string {
+  static extractDbErrorMessage(message: string): string {
     const matchKey = message.match(/\w+(?=\)\=)/g)[0];
     const name     = matchKey.replace(/\b\w/, v => v.toUpperCase());
     
     return `${name} already exists.`;
   }
   
-  static get postgresErrorCodes() {
-    return {
+  static getCustomErrorMessage(title: string, type: ErrorType): string {
+    const messages = {
+      [ErrorType.Empty]     : `${title} records are empty`,
+      [ErrorType.NotFound]  : `${title} not found`
+    };
+    
+    return messages[type];
+  }
+  
+  static getPgStatusErrorCode(code: string) {
+    const errorCodes = {
       "23505": HttpStatusCode.BAD_REQUEST
     };
+  
+    return errorCodes[code];
   }
   
 }
