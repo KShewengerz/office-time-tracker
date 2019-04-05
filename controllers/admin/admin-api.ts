@@ -1,13 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-import {hashSync, genSaltSync, compareSync, compare} from 'bcrypt';
+import { NextFunction, Request, Response } from "express";
+import { compareSync } from 'bcrypt';
 
-import { AdminTable, HttpStatusCode } from '@app/enums';
-import { Admin } from '@app/interfaces';
+import { AdminTable, ErrorType, CustomMethod, HttpStatusCode } from '@app/enums';
 import { db } from '@app/config';
-import { ErrorHandler } from '@app/helpers';
+import { ErrorHandler, ResponseHandler } from '@app/helpers';
 
-const snakeCase = require('snakecase-keys');
-const camelCase = require('camelcase-keys');
+const title: string = 'admin';
 
 
 /**
@@ -28,13 +26,10 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         const { id, username, password: hashedPassword } = admin[0];
         const matchPassword = compareSync(password, hashedPassword);
         
-        matchPassword ? res.status(HttpStatusCode.OK).send({ id, username }) : res.status(HttpStatusCode.NOT_FOUND).send('Invalid Password');
+        if (matchPassword) ResponseHandler.response(res, CustomMethod.LOGIN, title, { id, username });
+        else ErrorHandler.customError(res, HttpStatusCode.UNAUTHORIZED, title, ErrorType.INVALID_PASSWORD);
       }
-      else {
-        res.status(HttpStatusCode.NOT_FOUND).send('User not found');
-      }
+      else ErrorHandler.customError(res, HttpStatusCode.UNAUTHORIZED, title, ErrorType.INVALID_CREDENTIALS);
       
     });
-  
-  // res.status(HttpStatusCode.OK).send({ username });
 }

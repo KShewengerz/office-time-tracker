@@ -14,11 +14,12 @@ export class ErrorHandler {
     res.status(statusCode).send(response);
   }
   
-  static customError(res: Response, statusCode: HttpStatusCode, title: string, type: ErrorType) {
-    const message: string = this.getCustomErrorMessage(title, type);
-    const response: ErrorMessage   = { statusCode, message };
+  static getPgStatusErrorCode(code: string) {
+    const errorCodes = {
+      "23505": HttpStatusCode.BAD_REQUEST
+    };
     
-    res.status(statusCode).send(response);
+    return errorCodes[code];
   }
   
   static extractDbErrorMessage(message: string): string {
@@ -28,21 +29,22 @@ export class ErrorHandler {
     return `${name} already exists.`;
   }
   
+  static customError(res: Response, statusCode: HttpStatusCode, title: string, type: ErrorType) {
+    const message: string = this.getCustomErrorMessage(title, type);
+    const response: ErrorMessage   = { statusCode, message };
+    
+    res.status(statusCode).send(response);
+  }
+  
   static getCustomErrorMessage(title: string, type: ErrorType): string {
     const messages = {
-      [ErrorType.Empty]     : `${title} records are empty`,
-      [ErrorType.NotFound]  : `${title} not found`
+      [ErrorType.EMPTY]               : `${title} records are empty`,
+      [ErrorType.NOTFOUND]            : `${title} not found`,
+      [ErrorType.INVALID_PASSWORD]    : `Password is incorrect`,
+      [ErrorType.INVALID_CREDENTIALS] : `Invalid username / password`
     };
     
     return messages[type];
-  }
-  
-  static getPgStatusErrorCode(code: string) {
-    const errorCodes = {
-      "23505": HttpStatusCode.BAD_REQUEST
-    };
-  
-    return errorCodes[code];
   }
   
 }
