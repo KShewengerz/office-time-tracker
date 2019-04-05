@@ -40,11 +40,4 @@ router.get('/:id', api.getEmployee);
 router.delete('/:id', api.deleteEmployee);
 
 
-/**
- * Employee Login
- */
-router.post('/login', api.login);
-
-
-
 export const employeeRoutes: Router = router;

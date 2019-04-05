@@ -3,7 +3,7 @@ import { ErrorMessage } from '@app/interfaces';
 import { HttpStatusCode } from '@app/enums';
 
 
-export class ErrorMessageHandler {
+export class ErrorHandler {
   
   static error(res: Response, { code, detail: message }): void {
     const status                  = this.getHttpStatusCode(code);

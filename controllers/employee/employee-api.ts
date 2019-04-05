@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from "express";
-import { compareSync } from 'bcrypt';
 
-import { HttpStatusCode, EmployeeTable } from '@app/enums';
+import { HttpStatusCode, HttpMethod, EmployeeTable } from '@app/enums';
 import { Employee } from '@app/interfaces';
 import { db } from '@app/config';
-import { ErrorMessageHandler } from '@app/helpers';
+import { ErrorHandler, ResponseHandler } from '@app/helpers';
 
 const snakeCase = require('snakecase-keys');
 const camelCase = require('camelcase-keys');
+
+const title: string = 'employee';
 
 
 /**
@@ -25,9 +26,13 @@ export async function addEmployee(req: Request, res: Response, next: NextFunctio
   
   await db(EmployeeTable.Table)
     .insert(body)
-    .catch(err => ErrorMessageHandler.error(res, err) );
+    .catch(err => ErrorHandler.error(res, err) );
   
-  if (res.statusCode !== HttpStatusCode.BAD_REQUEST) res.sendStatus(HttpStatusCode.CREATED);
+  if (res.statusCode !== HttpStatusCode.BAD_REQUEST) {
+    const currentId = await db(EmployeeTable.Table).select(EmployeeTable.Id).orderBy(EmployeeTable.Id, 'desc').limit(1);
+    body.id  = currentId[0].id;
+    ResponseHandler.response(res, HttpMethod.POST, title, body);
+  }
 }
 
 
@@ -51,7 +56,7 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
     .update(body)
     .catch(err => err);
   
-  res.sendStatus(HttpStatusCode.OK);
+  ResponseHandler.response(res, HttpMethod.PUT, title, body);
 }
 
 
@@ -71,7 +76,7 @@ export async function getEmployees(req: Request, res: Response, next: NextFuncti
   const employees          = await db(EmployeeTable.Table).select();
   const result: Employee[] = camelCase(employees);
   
-  res.json(result);
+  ResponseHandler.response(res, HttpMethod.GET, title, result);
 }
 
 
@@ -92,7 +97,7 @@ export async function getEmployee(req: Request, res: Response, next: NextFunctio
   const fetchEmployee     = await db(EmployeeTable.Table).where({ id });
   const result: Employee  = camelCase(fetchEmployee);
   
-  res.json(result);
+  ResponseHandler.response(res, HttpMethod.GET, title, result);
 }
 
 
@@ -112,22 +117,9 @@ export async function deleteEmployee(req: Request, res: Response, next: NextFunc
   const id = req.params.id;
   
   await db(EmployeeTable.Table)
-  .where({ id })
-  .del()
-  .catch(err => err);
+    .where({ id })
+    .del()
+    .catch(err => err);
   
-  res.sendStatus(HttpStatusCode.NO_CONTENT);
-}
-
-
-/**
- * Mock employee's login
- *
- * @param req
- * @param res
- * @param next
- */
-export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
-  const username =  req.body.username;
-  res.status(HttpStatusCode.OK).send({ username });
+  ResponseHandler.response(res, HttpMethod.DEL, title, { id });
 }
