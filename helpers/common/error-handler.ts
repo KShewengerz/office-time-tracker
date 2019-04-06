@@ -38,8 +38,7 @@ export class ErrorHandler {
   
   static getCustomErrorMessage(title: string, type: ErrorType): string {
     const messages = {
-      [ErrorType.EMPTY]               : `${title} records are empty`,
-      [ErrorType.NOTFOUND]            : `${title} not found`,
+      [ErrorType.NOT_FOUND]            : `${title} not found`,
       [ErrorType.INVALID_PASSWORD]    : `Password is incorrect`,
       [ErrorType.INVALID_CREDENTIALS] : `Invalid username / password`
     };

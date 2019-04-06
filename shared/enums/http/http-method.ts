@@ -6,5 +6,6 @@ export enum HttpMethod {
 }
 
 export enum CustomMethod {
-  LOGIN = 'login'
+  LOGIN     = 'login',
+  FETCH_ALL = 'fetch_all'
 }

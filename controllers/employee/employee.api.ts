@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+import {NextFunction, Request, Response} from 'express';
 
-import { db } from '@app/config';
-import { Employee } from '@app/interfaces';
-import { EmployeeTable, ErrorType, HttpMethod, HttpStatusCode } from '@app/enums';
-import { ErrorHandler, ResponseHandler } from '@app/helpers';
+import {db} from '@app/config';
+import {Employee} from '@app/interfaces';
+import {CustomMethod, EmployeeTable, ErrorType, HttpMethod, HttpStatusCode} from '@app/enums';
+import {ErrorHandler, ResponseHandler} from '@app/helpers';
 
 const snakeCase = require('snakecase-keys');
 const camelCase = require('camelcase-keys');
@@ -58,7 +58,7 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
     .catch(err => err);
   
   if (employee) ResponseHandler.response(res, HttpMethod.PUT, title, body);
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOTFOUND);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOT_FOUND);
 }
 
 
@@ -76,12 +76,9 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
  */
 export async function getEmployees(req: Request, res: Response, next: NextFunction): Promise<void> {
   const employees          = await db(EmployeeTable.Table).select();
+  const result: Employee[] = camelCase(employees);
   
-  if (employees.length) {
-    const result: Employee[] = camelCase(employees);
-    ResponseHandler.response(res, HttpMethod.GET, title, result);
-  }
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.EMPTY);
+  ResponseHandler.response(res, CustomMethod.FETCH_ALL, title, result);
 }
 
 
@@ -105,7 +102,7 @@ export async function getEmployee(req: Request, res: Response, next: NextFunctio
     const result: Employee  = camelCase(employee);
     ResponseHandler.response(res, HttpMethod.GET, title, result);
   }
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOTFOUND);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOT_FOUND);
 }
 
 
@@ -130,5 +127,5 @@ export async function deleteEmployee(req: Request, res: Response, next: NextFunc
     .catch(err => err);
   
   if (employee) ResponseHandler.response(res, HttpMethod.DEL, title, { id });
-  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOTFOUND);
+  else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOT_FOUND);
 }

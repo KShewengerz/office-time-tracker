@@ -25,7 +25,8 @@ export class ResponseHandler {
       [HttpMethod.PUT]     : `Successfully Updated ${title}`,
       [HttpMethod.GET]     : `Record/s exists`,
       [HttpMethod.DEL]     : `Successfully Deleted ${title}`,
-      [CustomMethod.LOGIN] : `${title} successfully logged in`
+      [CustomMethod.LOGIN] : `${title} successfully logged in`,
+      [CustomMethod.FETCH_ALL] : `Records are empty`
     };
 
     return messages[method];
