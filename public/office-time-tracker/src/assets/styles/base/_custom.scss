@@ -1,0 +1,14 @@
+@import 'typography';
+
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100%;
+  font-family: mat-font-family($custom-typography);
+}
+
+.cursor-pointer { cursor: pointer; }

@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+@import '../utils/mixins';
+
+$sans-serif: sans-serif;
+$Lato: Lato-Light, #{$sans-serif};
+$Lato-Bold: Lato-Regular, #{$sans-serif};
+
+@include font-face('Lato', '/assets/fonts/lato/Lato-Light.ttf', 'truetype');
+@include font-face('Lato-Regular', '/assets/fonts/lato/Lato-Regular.ttf', 'truetype');
+
+$custom-typography: mat-typography-config($font-family: 'Lato, #{$sans-serif}');
+
+@include mat-base-typography($custom-typography);
+
+@include mat-checkbox-typography($custom-typography);
+
+@include angular-material-typography($custom-typography);
+
+@include mat-core($custom-typography);

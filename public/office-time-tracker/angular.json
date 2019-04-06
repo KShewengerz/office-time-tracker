@@ -27,8 +27,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/material-design-icons-iconfont/dist/material-design-icons.css",
+              "src/assets/styles/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/", "src/assets/styles",
+                "node_modules"
+              ]
+            },
             "scripts": [],
             "es5BrowserSupport": true
           },

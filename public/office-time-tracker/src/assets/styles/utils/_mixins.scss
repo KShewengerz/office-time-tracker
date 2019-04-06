@@ -1,0 +1,15 @@
+@mixin font-face($name, $path, $format) {
+  @font-face {
+    font-family: $name;
+    src: url("#{$path}") format("#{$format}");
+  }
+}
+
+
+@mixin media($start-breakpoint) {
+
+  @media screen and (max-width: $start-breakpoint) {
+    @content;
+  }
+
+}
