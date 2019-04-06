@@ -14,7 +14,7 @@
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@app/*": ["./public/ng-app/src/app/*"],
+      "@app/*": ["./public/office-time-tracker/src/app/*"],
       "@app/config": ["config"],
       "@app/helpers":  ["helpers"],
       "@app/controllers": ["controllers"],

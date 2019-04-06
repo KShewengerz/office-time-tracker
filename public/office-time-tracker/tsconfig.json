@@ -9,15 +9,16 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "target": "es5",
-    "paths": {
-      "@app/*": ["src/app/*"]
-    },
     "typeRoots": [
       "node_modules/@types"
     ],
+    "paths": {
+      "@app/*": ["src/app/*"]
+    },
     "lib": [
-      "es2017",
+      "es2018",
       "dom"
     ]
   }

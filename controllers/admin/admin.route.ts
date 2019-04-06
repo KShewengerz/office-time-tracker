@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import * as api from './admin-api';
+import * as api from './admin.api';
 
 const router: Router = Router();
 
