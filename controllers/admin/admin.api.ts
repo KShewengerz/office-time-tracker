@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { compareSync } from 'bcrypt';
 
-import { AdminTable, ErrorType, CustomMethod, HttpStatusCode } from '@app/enums';
 import { db } from '@app/config';
+import { AdminTable, ErrorType, CustomMethod, HttpStatusCode } from '@app/enums';
 import { ErrorHandler, ResponseHandler } from '@app/helpers';
 
 const title: string = 'admin';
