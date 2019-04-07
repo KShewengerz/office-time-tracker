@@ -1,3 +1,25 @@
-<p>
-  login form works!
-</p>
+<!-- LOGO -->
+<div class="logo"
+     fxLayoutAlign="center">
+  <mat-icon class="float-left">access_time</mat-icon>
+  <span>OFFICE TIME TRACKER</span>
+</div><!-- END .logo -->
+
+
+<!-- LOGIN FORM -->
+<form novalidate>
+  <mat-form-field>
+    <input matInput
+           placeholder="Username">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           type="password"
+           placeholder="Password">
+  </mat-form-field>
+
+  <button mat-flat-button
+          color="primary"
+          tabindex="-1">LOGIN</button>
+</form>

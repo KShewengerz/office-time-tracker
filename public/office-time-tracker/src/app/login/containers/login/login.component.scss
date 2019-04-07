@@ -1,6 +1,8 @@
 @import 'base/color';
 @import 'base/typography';
 
+
+/* CONTAINER */
 .container {
   background-color: $whitesmoke;
   height: 100vh;
@@ -10,10 +12,13 @@
     max-width: 100%;
     background: white;
     border-radius: 20px;
+    box-shadow: 1px 1px 5px 0px $light-gray;
   }
 }
 
-.mat-grid-list .mat-grid-tile:last-child {
+
+/* HEADLINE */
+.headline {
   border-radius: 0 20px 20px 0;
   color: white;
 

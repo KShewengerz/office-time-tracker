@@ -1,0 +1,51 @@
+@import 'base/color';
+@import 'base/typography';
+
+
+/* HOST */
+:host {
+  width: 100%;
+  padding: 50px;
+}
+
+
+/* LOGO */
+.logo {
+  .mat-icon {
+    background: linear-gradient($pink, $primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    margin-bottom: 40px;
+    padding-right: 10px;
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+  }
+
+  span {
+    font-family: $Lato-Bold;
+    color: $light-orange;
+    position: relative;
+    top: 13px;
+    font-size: 19px;
+  }
+}
+
+
+/* FORM */
+form {
+  .mat-form-field {
+    min-width: 350px;
+    max-width: 100%;
+
+    ::ng-deep .mat-form-field-label-wrapper { font-size: 14px; }
+  }
+
+  button {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 40px;
+    background-image: linear-gradient(to right, $pink 0%, $primary 80%, $primary 100%);
+  }
+}
