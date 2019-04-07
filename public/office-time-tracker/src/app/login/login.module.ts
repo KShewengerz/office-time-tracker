@@ -6,8 +6,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginMaterialModule } from '@app/login/login-material.module';
 import { LoginRoutingModule } from '@app/login/login-routing.module';
 
-import { LoginFormComponent } from '@app/login/components/login-form/login-form.component';
 import { LoginComponent } from '@app/login/containers/login/login.component';
+import { LoginFormComponent } from '@app/login/components/login-form/login-form.component';
+import { IntroComponent } from '@app/login/components/intro/intro.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { LoginComponent } from '@app/login/containers/login/login.component';
   ],
   declarations: [
     LoginComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    IntroComponent
   ]
 })
 export class LoginModule { }

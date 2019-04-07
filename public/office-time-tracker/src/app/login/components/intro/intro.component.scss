@@ -1,0 +1,27 @@
+@import 'base/typography';
+
+
+/* INTRO */
+.intro {
+
+  .mat-icon {
+    font-size: 70px;
+    height: 95px;
+    width: 70px;
+    margin: 0 auto;
+  }
+
+  ::ng-deep .mat-figure {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  hr {
+    border: 1px solid white;
+    width: 75%;
+    margin: 10px auto;
+  }
+
+  p { font-size: 14px; font-family: $Lato-Bold; }
+}

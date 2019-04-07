@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MatIconModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatGridListModule } from '@angular/material';
+import { MatIconModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatGridListModule, MatCardModule } from '@angular/material';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { MatIconModule, MatInputModule, MatFormFieldModule, MatButtonModule, Mat
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
   ]
 })
 export class LoginMaterialModule {}

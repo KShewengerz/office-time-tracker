@@ -1,5 +1,5 @@
 @import 'base/color';
-@import 'base/typography';
+@import 'utils/mixins';
 
 
 /* CONTAINER */
@@ -8,41 +8,21 @@
   height: 100vh;
 
   .wrapper {
-    width: 900px;
+    min-width: 900px;
     max-width: 100%;
     background: white;
     border-radius: 20px;
-    box-shadow: 1px 1px 5px 0px $light-gray;
+    box-shadow: 1px 1px 5px 0 $light-gray;
   }
 }
 
 
-/* HEADLINE */
-.headline {
+/* INTRO */
+.intro {
   border-radius: 0 20px 20px 0;
   color: white;
 
   background: #e616109e url("../../../../assets/images/team.jpeg") no-repeat center;
   background-size: cover;
   background-blend-mode: soft-light;
-
-  .mat-icon {
-    font-size: 70px;
-    height: 95px;
-    width: 70px;
-  }
-
-  ::ng-deep .mat-figure {
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-  }
-
-  hr {
-    border: 1px solid white;
-    width: 75%;
-    margin: 10px 0;
-  }
-
-  p { font-size: 14px; font-family: $Lato-Bold; }
 }
