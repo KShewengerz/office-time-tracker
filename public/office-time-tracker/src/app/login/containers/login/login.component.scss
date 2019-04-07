@@ -2,23 +2,57 @@
 @import 'utils/mixins';
 
 
+$breakpoint-930: 930px;
+$breakpoint-375: 375px;
+
+
 /* CONTAINER */
 .container {
   background-color: $whitesmoke;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .wrapper {
-    min-width: 900px;
+    @include media($breakpoint-930) {
+      width: 500px !important;
+    }
+
+    background-color: white;
+    width: 900px;
     max-width: 100%;
-    background: white;
     border-radius: 20px;
     box-shadow: 1px 1px 5px 0 $light-gray;
+  }
+}
+
+.mat-grid-list {
+  @include media($breakpoint-375) {
+    & {
+      padding-bottom: calc(((2 * ((55% - 0px) * 1)) + 0px) + 1px) !important;
+      padding-top: 30px;
+    }
+  }
+}
+
+
+/* FORM */
+.form {
+  @include media($breakpoint-930) {
+    & {
+      padding-top: calc(((100% - 0px) * 1) + 0px) !important;
+    }
   }
 }
 
 
 /* INTRO */
 .intro {
+  @include media($breakpoint-930) {
+    & { display: none; }
+  }
+
   border-radius: 0 20px 20px 0;
   color: white;
 

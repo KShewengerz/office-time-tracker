@@ -1,16 +1,12 @@
 <div class="container"
-     fxFlex
-     gdAlignRows="center"
-     gdAlignColumns="center">
-
+     (window:resize)="setGridConfig($event.target.innerWidth)">
 
   <div class="wrapper">
-
-    <mat-grid-list cols="2"
-                   rowHeight="2:2.2">
+    <mat-grid-list [cols]="gridColumn"
+                   [rowHeight]="gridRowHeight">
 
       <!-- LOGIN FORM -->
-      <mat-grid-tile>
+      <mat-grid-tile class="form">
         <app-login-form></app-login-form>
       </mat-grid-tile>
 
@@ -21,9 +17,7 @@
       </mat-grid-tile>
 
     </mat-grid-list>
-
   </div>
-
 
 </div><!-- END .container -->
 

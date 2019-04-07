@@ -11,16 +11,36 @@
 
 /* LOGO */
 .logo {
+  $breakpoint-375: 375px;
+
+  /* MEDIA QUERY */
+  @include media($breakpoint-375) {
+    $size-35-important: 35px !important;
+
+    .mat-icon {
+      font-size: $size-35-important;
+      height: $size-35-important;
+      width: $size-35-important;
+    }
+
+    span {
+      top: 7px !important;
+      font-size: 16px !important;
+    }
+  }
+
   .mat-icon {
-    background: linear-gradient($pink, $primary);
+    $size-50: 50px;
+
+    background: -webkit-linear-gradient($pink, $primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
     margin-bottom: 40px;
     padding-right: 10px;
-    font-size: 50px;
-    height: 50px;
-    width: 50px;
+    font-size: $size-50;
+    height: $size-50;
+    width: $size-50;
   }
 
   span {
@@ -36,8 +56,7 @@
 /* FORM */
 form {
   .mat-form-field {
-    min-width: 350px;
-    max-width: 100%;
+    width: 100%;
 
     ::ng-deep .mat-form-field-label-wrapper { font-size: 14px; }
   }
