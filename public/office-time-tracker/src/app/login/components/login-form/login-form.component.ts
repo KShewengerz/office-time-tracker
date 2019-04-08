@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { filter } from 'rxjs/operators';
 
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
@@ -16,18 +18,30 @@ import { loginFields } from '@app/login/components/login-form/login-form.data';
   templateUrl : './login-form.component.html',
   styleUrls   : ['./login-form.component.scss']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
   
   form: FormGroup = new FormGroup({});
   fields: FormlyFieldConfig[] = loginFields;
   
+  errorMessage: string;
+  
   constructor(private authService: AuthService,
               private router: Router) { }
+              
+  ngOnInit(): void {
+    this.form
+      .valueChanges
+      .pipe(filter(() => !!this.errorMessage))
+      .subscribe(() => this.errorMessage = '');
+  }
   
   login(data: Credential) {
      this.authService
       .login(data)
-      .subscribe(response => this.router.navigate(['/home']));
+      .subscribe(
+        response => this.router.navigate(['/home']),
+        ({ error }) => this.errorMessage = error.message
+      );
   }
 
 }

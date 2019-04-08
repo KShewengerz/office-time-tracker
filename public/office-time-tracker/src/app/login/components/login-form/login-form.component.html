@@ -15,7 +15,13 @@
 
     <button mat-flat-button
             color="primary"
-            tabindex="-1">LOGIN</button>
+            tabindex="-1"
+            [disabled]="form.invalid">LOGIN</button>
+
+
+    <mat-error *ngIf="errorMessage"
+               class="error">{{ errorMessage }}</mat-error>
+
   </formly-form>
 
 </form>

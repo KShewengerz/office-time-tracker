@@ -57,13 +57,18 @@
 
 
 /* FORM */
-
-
-
 form {
   ::ng-deep .mat-error { text-align: right; }
 
   ::ng-deep .mat-form-field-infix { font-size: 15px; }
+
+  .error {
+    text-align: center;
+    margin-top: 25px;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: bold;
+  }
 
   .mat-form-field {
     width: 100%;
@@ -78,5 +83,9 @@ form {
     border-radius: 20px;
     margin-top: 45px;
     background-image: linear-gradient(to right, $pink 0%, $primary 80%, $primary 100%);
+  }
+
+  button[disabled] {
+    background-image: linear-gradient(to right, #f3c3c3 0%, #e89792 80%, #f7a9a4 100%)
   }
 }
