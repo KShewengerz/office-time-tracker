@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { LoginMaterialModule } from '@app/login/login-material.module';
 import { LoginRoutingModule } from '@app/login/login-routing.module';
 
@@ -14,7 +12,6 @@ import { IntroComponent } from '@app/login/components/intro/intro.component';
 @NgModule({
   imports: [
     CommonModule,
-    FlexLayoutModule,
     LoginMaterialModule,
     LoginRoutingModule
   ],
