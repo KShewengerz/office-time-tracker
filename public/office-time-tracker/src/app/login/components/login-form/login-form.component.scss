@@ -13,6 +13,9 @@
 .logo {
   $breakpoint-375: 375px;
 
+  display: flex;
+  justify-content: center;
+
   /* MEDIA QUERY */
   @include media($breakpoint-375) {
     $size-35-important: 35px !important;
@@ -54,9 +57,18 @@
 
 
 /* FORM */
+
+
+
 form {
+  ::ng-deep .mat-error { text-align: right; }
+
+  ::ng-deep .mat-form-field-infix { font-size: 15px; }
+
   .mat-form-field {
     width: 100%;
+    margin-bottom: 20px;
+
 
     ::ng-deep .mat-form-field-label-wrapper { font-size: 14px; }
   }
@@ -64,7 +76,7 @@ form {
   button {
     width: 100%;
     border-radius: 20px;
-    margin-top: 40px;
+    margin-top: 45px;
     background-image: linear-gradient(to right, $pink 0%, $primary 80%, $primary 100%);
   }
 }

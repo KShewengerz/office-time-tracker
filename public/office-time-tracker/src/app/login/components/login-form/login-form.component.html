@@ -6,20 +6,17 @@
 
 
 <!-- LOGIN FORM -->
-<form novalidate>
-  <mat-form-field>
-    <input matInput
-           placeholder="Username">
-  </mat-form-field>
+<form [formGroup]="form"
+      (submit)="login(form.value)"
+      novalidate>
 
-  <mat-form-field>
-    <input matInput
-           type="password"
-           placeholder="Password">
-  </mat-form-field>
+  <formly-form [fields]="fields"
+               [form]="form">
 
-  <button type="button"
-          mat-flat-button
-          color="primary"
-          tabindex="-1">LOGIN</button>
+    <button mat-flat-button
+            color="primary"
+            tabindex="-1">LOGIN</button>
+  </formly-form>
+
+
 </form>
