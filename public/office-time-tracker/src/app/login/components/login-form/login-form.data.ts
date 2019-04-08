@@ -3,7 +3,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export const loginFields: FormlyFieldConfig[] = [
   {
-    key: 'Username',
+    key: 'username',
     type: 'input',
     templateOptions: {
       placeholder: 'Username',
@@ -11,7 +11,7 @@ export const loginFields: FormlyFieldConfig[] = [
     }
   },
   {
-    key: 'Password',
+    key: 'password',
     type: 'input',
     templateOptions: {
       placeholder: 'Password',

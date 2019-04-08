@@ -30,10 +30,11 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         const matchPassword = compareSync(password, hashedPassword);
         
         if (matchPassword) {
-          const key   = process.env.TOKEN_PRIVATE_KEY;
-          const token = sign({ id, username }, key);
+          const key       = process.env.TOKEN_PRIVATE_KEY;
+          const expiresIn = '24h';
+          const token     = sign({ id, username, expiresIn }, key, { expiresIn });
           
-          ResponseHandler.response(res, CustomMethod.LOGIN, title, { token });
+          ResponseHandler.response(res, CustomMethod.LOGIN, title, { token, expiresIn });
         }
         else ErrorHandler.customError(res, HttpStatusCode.UNAUTHORIZED, title, ErrorType.INVALID_PASSWORD);
       }

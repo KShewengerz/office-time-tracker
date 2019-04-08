@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-import { LoginService } from '@app/login/login.service';
+import { AuthService } from '@app/core/auth/auth.service';
 
 import { Credential } from '@app/login/models/credential.model';
 
@@ -20,13 +20,12 @@ export class LoginFormComponent {
   form: FormGroup = new FormGroup({});
   fields: FormlyFieldConfig[] = loginFields;
   
-  constructor(private loginService: LoginService) { }
+  constructor(private authService: AuthService) { }
   
   login(data: Credential) {
-    console.log(data);
-    // this.loginService
-    //  .login(data)
-    //  .subscribe(response => console.log(response));
+     this.authService
+      .login(data)
+      .subscribe(response => console.log(response));
   }
 
 }

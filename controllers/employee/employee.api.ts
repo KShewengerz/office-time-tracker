@@ -1,9 +1,9 @@
 import {NextFunction, Request, Response} from 'express';
 
-import {db} from '@app/config';
-import {Employee} from '@app/interfaces';
-import {CustomMethod, EmployeeTable, ErrorType, HttpMethod, HttpStatusCode} from '@app/enums';
-import {ErrorHandler, ResponseHandler} from '@app/helpers';
+import { db } from '@app/config';
+import { Employee } from '@app/interfaces';
+import { CustomMethod, EmployeeTable, ErrorType, HttpMethod, HttpStatusCode } from '@app/enums';
+import { ErrorHandler, ResponseHandler } from '@app/helpers';
 
 const snakeCase = require('snakecase-keys');
 const camelCase = require('camelcase-keys');

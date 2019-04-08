@@ -4,6 +4,7 @@
     "codelyzer"
   ],
   "rules": {
+    "curly": false,
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
@@ -59,6 +60,13 @@
     "quotemark": [
       true,
       "single"
+    ],
+    "one-line": [
+      false,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
     ],
     "trailing-comma": false,
     "no-trailing-whitespace": false,
