@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
@@ -20,12 +21,13 @@ export class LoginFormComponent {
   form: FormGroup = new FormGroup({});
   fields: FormlyFieldConfig[] = loginFields;
   
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
   
   login(data: Credential) {
      this.authService
       .login(data)
-      .subscribe(response => console.log(response));
+      .subscribe(response => this.router.navigate(['/home']));
   }
 
 }

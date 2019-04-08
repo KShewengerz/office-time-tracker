@@ -1,4 +1,4 @@
-export * from './common/error-handler';
-export * from './common/response-handler';
+export * from './handlers/error-handler';
+export * from './handlers/response-handler';
 
-export * from './common/validate-authentication';
+export * from './auth/validate-authentication';
