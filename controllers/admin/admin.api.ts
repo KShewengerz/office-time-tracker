@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { compareSync } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 
 import { db } from '@app/config';
 import { AdminTable, ErrorType, CustomMethod, HttpStatusCode } from '@app/enums';
 import { ErrorHandler, ResponseHandler } from '@app/helpers';
 
 const title: string = 'admin';
+
+require('dotenv').config();
 
 
 /**
@@ -26,7 +29,12 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         const { id, username, password: hashedPassword } = admin[0];
         const matchPassword = compareSync(password, hashedPassword);
         
-        if (matchPassword) ResponseHandler.response(res, CustomMethod.LOGIN, title, { id, username });
+        if (matchPassword) {
+          const key   = process.env.TOKEN_PRIVATE_KEY;
+          const token = sign({ id, username }, key);
+          
+          ResponseHandler.response(res, CustomMethod.LOGIN, title, { token });
+        }
         else ErrorHandler.customError(res, HttpStatusCode.UNAUTHORIZED, title, ErrorType.INVALID_PASSWORD);
       }
       else ErrorHandler.customError(res, HttpStatusCode.UNAUTHORIZED, title, ErrorType.INVALID_CREDENTIALS);
