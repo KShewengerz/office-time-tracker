@@ -1,5 +1,6 @@
 @import 'base/color';
 @import 'base/typography';
+@import 'utils/mixins';
 
 
 /* HOST */
@@ -21,9 +22,7 @@
     $size-35-important: 35px !important;
 
     .mat-icon {
-      font-size: $size-35-important;
-      height: $size-35-important;
-      width: $size-35-important;
+      @include icon(35px !important);
     }
 
     span {
@@ -33,7 +32,7 @@
   }
 
   .mat-icon {
-    $size-50: 50px;
+    @include icon(50px);
 
     background: -webkit-linear-gradient($pink, $primary);
     -webkit-background-clip: text;
@@ -41,9 +40,6 @@
 
     margin-bottom: 40px;
     padding-right: 10px;
-    font-size: $size-50;
-    height: $size-50;
-    width: $size-50;
   }
 
   span {
