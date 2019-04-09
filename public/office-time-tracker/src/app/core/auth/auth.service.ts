@@ -23,10 +23,10 @@ export class AuthService extends RestService {
   
   
   private setSession({ token, expiresIn }: Auth) {
-    expiresIn = JSON.stringify(moment().add(expiresIn, 'hours').valueOf());
+    const expires = moment().add(expiresIn, 'hours');
     
     localStorage.setItem('token:id', token);
-    localStorage.setItem('token:expiresIn', expiresIn);
+    localStorage.setItem('token:expiresIn', JSON.stringify(expires.valueOf()));
   }
   
   login(data: Credential): Observable<Auth> {
@@ -43,7 +43,7 @@ export class AuthService extends RestService {
   
   isLoggedIn(): boolean {
     const expiredAt   = localStorage.getItem('token:expiresIn');
-    const expiration  = moment(expiredAt);
+    const expiration  = moment(JSON.parse(expiredAt));
     
     return moment().isBefore(expiration);
   }
