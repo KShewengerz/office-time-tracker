@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import * as moment from 'moment';
+import * as decode from 'jwt-decode';
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -22,9 +23,10 @@ export class AuthService extends RestService {
               @Inject('API_URL') protected baseUrl: string) { super(http, baseUrl); }
   
   
-  private setSession({ token, expiresIn }: Auth) {
-    const expires = moment().add(expiresIn, 'hours');
-    
+  private setSession(token: string) {
+    const { expiresIn } = decode(token);
+    const expires       = moment().add(expiresIn, 'hours');
+
     localStorage.setItem('token:id', token);
     localStorage.setItem('token:expiresIn', JSON.stringify(expires.valueOf()));
   }
@@ -38,7 +40,8 @@ export class AuthService extends RestService {
   }
   
   logout(): void {
-    localStorage.removeItem('admin');
+    localStorage.removeItem('token:id');
+    localStorage.removeItem('token:expiresIn');
   }
   
   isLoggedIn(): boolean {

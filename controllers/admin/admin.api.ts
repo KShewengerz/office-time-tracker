@@ -31,10 +31,10 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         
         if (matchPassword) {
           const key       = process.env.TOKEN_PRIVATE_KEY;
-          const expiresIn = '24h';
+          const expiresIn = Math.floor(Date.now() / 1000) + 86400000;
           const token     = sign({ id, username, expiresIn }, key, { expiresIn });
           
-          ResponseHandler.response(res, CustomMethod.LOGIN, title, { token, expiresIn });
+          ResponseHandler.response(res, CustomMethod.LOGIN, title, token);
         }
         else ErrorHandler.customError(res, HttpStatusCode.UNAUTHORIZED, title, ErrorType.INVALID_PASSWORD);
       }
