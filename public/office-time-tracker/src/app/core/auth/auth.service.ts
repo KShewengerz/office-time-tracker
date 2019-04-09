@@ -44,7 +44,7 @@ export class AuthService extends RestService {
     localStorage.removeItem('token:expiresIn');
   }
   
-  isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     const expiredAt   = localStorage.getItem('token:expiresIn');
     const expiration  = moment(JSON.parse(expiredAt));
     

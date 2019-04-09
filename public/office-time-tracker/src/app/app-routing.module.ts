@@ -7,12 +7,13 @@ import { AuthGuard } from '@app/core/auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './login/login.module#LoginModule'
+    loadChildren: './login/login.module#LoginModule',
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'home',
     loadChildren: './home/home.module#HomeModule',
-    canActivate: [ AuthGuard ]
+    canLoad: [ AuthGuard ]
   }
 ];
 
