@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 import * as decode from 'jwt-decode';
@@ -20,6 +21,7 @@ export class AuthService extends RestService {
   url: string = '/admin';
   
   constructor(http: HttpClient,
+              private router: Router,
               @Inject('API_URL') protected baseUrl: string) { super(http, baseUrl); }
   
   
@@ -42,6 +44,8 @@ export class AuthService extends RestService {
   logout(): void {
     localStorage.removeItem('token:id');
     localStorage.removeItem('token:expiresIn');
+    
+    this.router.navigate(['/']);
   }
   
   get isLoggedIn(): boolean {
