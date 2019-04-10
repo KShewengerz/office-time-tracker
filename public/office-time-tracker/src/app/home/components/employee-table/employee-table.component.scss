@@ -1,5 +1,75 @@
+@import 'base/color';
+@import 'base/typography';
 @import 'utils/mixins';
 
+
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin: 30px 0 15px 0;
+
+  @include media(910px) {
+    & {
+      justify-content: center !important;
+    }
+
+    button {
+      margin-top: 70px;
+      margin-bottom: 10px;
+      font-size: 11px !important;
+    }
+  }
+
+  button {
+
+    @include media(425px) {
+      margin-top: 30px !important;
+    }
+
+    border-color: white;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    height: 35px;
+    line-height: 1;
+
+    .mat-icon {
+      @include icon(18px);
+      padding-right: 5px;
+
+      & + span {
+        align-self: center;
+        font-weight: bold;
+        font-family: $Lato-Bold;
+      }
+    }
+  }
+}
+
+
+.mat-elevation-z8 {
+  position: relative;
+
+  .add-btn {
+    display: flex;
+    flex-direction: row-reverse;
+
+    //text-align: right;
+    //position: absolute;
+    //right: 15px;
+    //bottom: 17px;
+    //
+    //button {
+    //  background-image: linear-gradient(to left bottom, $pink 5%, $primary 80%, $primary 100%);
+    //
+    //  .mat-icon {
+    //    color: white;
+    //    font-size: 20px;
+    //    padding-left: 1px;
+    //  }
+    //}
+  }
+}
 
 table {
   position: relative;
@@ -16,6 +86,8 @@ table {
 
     &:last-child { color: #c13136; }
   }
+
+  th { height: 65px; }
 
   th, td {
     &:not(:last-of-type) {

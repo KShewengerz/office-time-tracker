@@ -29,6 +29,8 @@ export class LoginFormComponent implements OnInit {
               private router: Router) { }
               
   ngOnInit(): void {
+    this.form.reset();
+    
     this.form
       .valueChanges
       .pipe(filter(() => !!this.errorMessage))
@@ -39,7 +41,10 @@ export class LoginFormComponent implements OnInit {
      this.authService
       .login(data)
       .subscribe(
-        response => this.router.navigate(['/home']),
+        response => {
+          this.form.reset();
+          this.router.navigate(['/home']);
+        },
         ({ error }) => this.errorMessage = error.message
       );
   }

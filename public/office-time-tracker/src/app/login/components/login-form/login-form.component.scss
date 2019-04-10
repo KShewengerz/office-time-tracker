@@ -82,6 +82,8 @@ form {
   }
 
   button[disabled] {
-    background-image: linear-gradient(to right, #f3c3c3 0%, #e89792 80%, #f7a9a4 100%)
+    background-image: linear-gradient(to right, #f3c3c3 0%, #e89792 80%, #f7a9a4 100%);
+
+    ::ng-deep .mat-button-wrapper { color: white; }
   }
 }
