@@ -5,6 +5,7 @@ import { HomeMaterialModule } from '@app/home/home-material.module';
 import { HomeRoutingModule } from '@app/home/home-routing.module';
 
 import { HomeComponent } from '@app/home/containers/home.component';
+import { DateBannerComponent } from '@app/home/components/date-banner/date-banner.component';
 
 
 
@@ -15,7 +16,8 @@ import { HomeComponent } from '@app/home/containers/home.component';
     HomeRoutingModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    DateBannerComponent
   ]
 })
 export class HomeModule {}

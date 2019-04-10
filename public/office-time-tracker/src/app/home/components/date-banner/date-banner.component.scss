@@ -1,0 +1,43 @@
+@import 'utils/mixins';
+
+
+/* SET SPAN SIZE MIXIN */
+@mixin set-span-size($size1, $size2, $size3) {
+  & > span { font-size: $size1; }
+
+  & > div {
+    span:first-child { font-size: $size2; }
+
+    span:last-of-type { font-size: $size3; }
+  }
+}
+
+
+/* CONTAINER */
+.container {
+  $start-breakpoint: 425px;
+
+  @include media($start-breakpoint) {
+    & > div { top: 17px !important; }
+
+    @include set-span-size(5rem !important, 1.5rem !important, 2rem !important);
+  }
+
+  @include set-span-size(7rem, 2rem, 3rem);
+
+  display: flex;
+  font-weight: bold;
+
+  & > span {
+    padding-right: 20px;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 24px;
+  }
+}
+
+
