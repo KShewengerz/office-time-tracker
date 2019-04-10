@@ -1,0 +1,60 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell
+          *matHeaderCellDef> Name </th>
+
+      <td mat-cell
+          data-label="Name"
+          *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Time In">
+      <th mat-header-cell
+          *matHeaderCellDef> Time In </th>
+
+      <td mat-cell
+          data-label="Time In"
+          *matCellDef="let element"> {{element.timeIn}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Time Out">
+      <th mat-header-cell
+          *matHeaderCellDef> Time Out </th>
+
+      <td mat-cell
+          data-label="Time In"
+          *matCellDef="let element"> {{element.timeOut}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Active">
+      <th mat-header-cell *matHeaderCellDef> Active </th>
+
+      <td mat-cell
+          data-label="Time In"
+          *matCellDef="let element"> {{element.active}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell
+          *matHeaderCellDef></th>
+
+      <td mat-cell
+          data-label="Time In"
+          *matCellDef="let element">
+        <mat-icon>edit</mat-icon>
+        <mat-icon>delete</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[8]"
+                 hidePageSize="true"></mat-paginator>
+</div>

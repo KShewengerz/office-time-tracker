@@ -45,15 +45,27 @@
     }
   }
 
+  %center-container {
+    display: flex;
+    justify-content: center;
+  }
+
   .date-banner {
     @include media(425px) {
       align-items: center !important;
     }
 
+    @extend %center-container;
+
     color: white;
     height: 20vh;
-    display: flex;
     align-items: flex-end;
-    justify-content: center;
+  }
+
+  .employee-table {
+    @extend %center-container;
+
+    height: 60vh;
+    align-items: center;
   }
 }
