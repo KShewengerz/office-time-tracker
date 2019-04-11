@@ -20,31 +20,31 @@
         <td mat-cell
             data-label="Name"
             *matCellDef="let element">
-          <span>{{element.name}}</span>
+          <span>{{ element.name }}</span>
         </td>
       </ng-container>
 
       <!-- Time In Column -->
-      <ng-container matColumnDef="Time In">
+      <ng-container matColumnDef="Clock In">
         <th mat-header-cell
-            *matHeaderCellDef> Time In </th>
+            *matHeaderCellDef> Clock In </th>
 
         <td mat-cell
-            data-label="Time In"
+            data-label="Clock In"
             *matCellDef="let element">
-          <span>{{element.timeIn}}</span>
+          <span>{{ element.clockIn | date: 'shortTime' }}</span>
         </td>
       </ng-container>
 
       <!-- Time Out Column -->
-      <ng-container matColumnDef="Time Out">
+      <ng-container matColumnDef="Clock Out">
         <th mat-header-cell
             *matHeaderCellDef> Time Out </th>
 
         <td mat-cell
-            data-label="Time Out"
+            data-label="Clock Out"
             *matCellDef="let element">
-          <span>{{element.timeOut}}</span>
+          <span>{{ element.clockOut | date: 'shortTime' }}</span>
         </td>
       </ng-container>
 
@@ -58,7 +58,7 @@
           <span>
             <button mat-stroked-button
                     [class.active]="element.active">
-              {{ element.active ? 'Active' : 'In Active' }}
+              {{ element.active ? 'Active' : 'Inactive' }}
             </button>
           </span>
         </td>
