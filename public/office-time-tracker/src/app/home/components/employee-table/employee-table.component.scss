@@ -100,6 +100,8 @@ table {
 
   }
 
+
+  /* TABLE ACTION ICONS */
   .mat-icon {
     @include icon(17px);
 
@@ -133,6 +135,28 @@ table {
       text-align: center;
     }
   }
+
+
+  /* ACTIVE / INACTIVE BUTTON */
+  .mat-stroked-button {
+    @mixin set-button-border-bg($border-color, $bg-color) {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+
+    font-size: 12px;
+    height: 25px;
+    line-height: 1;
+    width: 80px;
+    color: #585858;
+    font-family: $Lato-Bold;
+
+    @include set-button-border-bg(#00000030, #f3f3f3);
+
+    &.active { @include set-button-border-bg(#629c44, white); }
+
+    ::ng-deep .mat-button-focus-overlay { display: none; }
+  }
 }
 
 
@@ -146,5 +170,6 @@ table {
 
   .mat-paginator-range-label { margin-top: 3px !important; }
 }
+
 
 

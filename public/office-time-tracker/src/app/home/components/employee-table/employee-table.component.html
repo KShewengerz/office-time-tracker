@@ -55,7 +55,12 @@
         <td mat-cell
             data-label="Active"
             *matCellDef="let element">
-          <span>{{element.active}}</span>
+          <span>
+            <button mat-stroked-button
+                    [class.active]="element.active">
+              {{ element.active ? 'Active' : 'In Active' }}
+            </button>
+          </span>
         </td>
       </ng-container>
 
