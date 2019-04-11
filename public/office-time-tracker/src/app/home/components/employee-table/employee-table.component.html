@@ -10,11 +10,14 @@
 
   <!-- EMPLOYEE TABLE-->
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table
+           matSort
+           [dataSource]="dataSource">
 
       <!-- Name Column -->
-      <ng-container matColumnDef="Name">
+      <ng-container matColumnDef="name">
         <th mat-header-cell
+            mat-sort-header
             *matHeaderCellDef> Name </th>
 
         <td mat-cell
@@ -25,7 +28,7 @@
       </ng-container>
 
       <!-- Time In Column -->
-      <ng-container matColumnDef="Clock In">
+      <ng-container matColumnDef="clockIn">
         <th mat-header-cell
             *matHeaderCellDef> Clock In </th>
 
@@ -37,7 +40,7 @@
       </ng-container>
 
       <!-- Time Out Column -->
-      <ng-container matColumnDef="Clock Out">
+      <ng-container matColumnDef="clockOut">
         <th mat-header-cell
             *matHeaderCellDef> Time Out </th>
 
@@ -49,8 +52,10 @@
       </ng-container>
 
       <!-- ACTIVE -->
-      <ng-container matColumnDef="Active">
-        <th mat-header-cell *matHeaderCellDef> Active </th>
+      <ng-container matColumnDef="active">
+        <th mat-header-cell
+            mat-sort-header
+            *matHeaderCellDef> Active </th>
 
         <td mat-cell
             data-label="Active"
@@ -65,7 +70,7 @@
       </ng-container>
 
       <!-- ACTION BUTTONS -->
-      <ng-container matColumnDef="Action">
+      <ng-container matColumnDef="action">
         <th mat-header-cell
             *matHeaderCellDef></th>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { Employee } from '@app/shared/models/employee.model';
 
@@ -13,19 +13,21 @@ import { Employee } from '@app/shared/models/employee.model';
 export class EmployeeTableComponent implements OnInit {
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   
   @Input()
   set employees({ body }) {
     this.dataSource = new MatTableDataSource<Employee[]>(body);
   }
   
-  displayedColumns: string[] = ['Name', 'Clock In', 'Clock Out', 'Active', 'Action'];
+  displayedColumns: string[] = ['name', 'clockIn', 'clockOut', 'active', 'action'];
   dataSource: MatTableDataSource<Employee[]>;
   
   constructor() {}
   
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
   
 }
