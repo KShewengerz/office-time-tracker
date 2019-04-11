@@ -12,15 +12,23 @@
 #### How to run
 
 ##### 1.) Install dependencies
-`$ npm run install:all        - Installs both front end and backend dependencies`
+Installs both front end and backend dependencies
 
-##### 2.) Edit .env file (DEV_DB_*) based on your local postgresql configuration 
-`This will be used as a basis to run our knex migration scripts in creating tables`
+`$ npm run install:all`        
+
+##### 2.) Edit `.env` file (DEV_DB_*) based on your local postgresql configuration 
 
 ##### 3.) Run Knex Migration Scripts
-`$ npm run knex:latest` or  `$ npm run knex:rollback` if you want to undo the migration
+
+`$ npm run knex:latest` 
+
+or  `$ npm run knex:rollback` if you want to undo the migration
+
 
 ##### 4.) Run the application
 
-`$ npm start` or if you want to run it separately: `npm run ng:start` and `npm run express:start`
+`$ npm start` to run both node and angular 
+
+or if you want to run it separately: `npm run ng:start` and `npm run express:start`
+
 
