@@ -26,6 +26,7 @@
 /* CONTAINER */
 .container {
   background-image: linear-gradient(to bottom, $primary, $pink);
+  overflow-y: scroll;
 
   .logo {
     .mat-icon:first-child {
@@ -58,14 +59,14 @@
     @extend %center-container;
 
     color: white;
-    height: 20vh;
+    margin-top: 50px;
+    flex: 1 1 auto;
     align-items: flex-end;
   }
 
   .employee-table {
     @extend %center-container;
 
-    height: 60vh;
     align-items: center;
   }
 }

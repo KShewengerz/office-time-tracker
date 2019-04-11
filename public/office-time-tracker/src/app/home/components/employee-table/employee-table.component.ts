@@ -42,7 +42,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class EmployeeTableComponent implements OnInit {
   
-  displayedColumns: string[] = ['Name', 'Time In', 'Time Out', 'Active', 'action'];
+  displayedColumns: string[] = ['Name', 'Time In', 'Time Out', 'Active', 'Action'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -3,6 +3,11 @@
 @import 'utils/mixins';
 
 
+/* CONTAINER */
+.container { margin-bottom: 70px; }
+
+
+/* ADD BUTTON */
 .btn-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -14,7 +19,6 @@
     }
 
     button {
-      margin-top: 70px;
       margin-bottom: 10px;
       font-size: 11px !important;
     }
@@ -47,34 +51,54 @@
 }
 
 
-.mat-elevation-z8 {
-  position: relative;
-
-  .add-btn {
-    display: flex;
-    flex-direction: row-reverse;
-
-    //text-align: right;
-    //position: absolute;
-    //right: 15px;
-    //bottom: 17px;
-    //
-    //button {
-    //  background-image: linear-gradient(to left bottom, $pink 5%, $primary 80%, $primary 100%);
-    //
-    //  .mat-icon {
-    //    color: white;
-    //    font-size: 20px;
-    //    padding-left: 1px;
-    //  }
-    //}
-  }
-}
-
+/* TABLE */
 table {
   position: relative;
   table-layout: fixed;
-  overflow-x: scroll;
+
+
+  /* TABLE MEDIA QUERY AT 768PX */
+  @include media(768px) {
+
+    %width-75 { width: 75vw !important; }
+
+    ::ng-deep thead { display: none; }
+
+    tr:nth-child(odd) { background-color: rgba(142, 134, 134, 0.075); }
+
+    th { @extend %width-75; }
+
+    td {
+      display: flex;
+      width: 100%;
+      padding: 10px !important;
+
+      @extend %width-75;
+
+      &:last-of-type {
+        text-align: left !important;
+        border-bottom: 2px solid #0000001f;
+        padding-right: 0;
+      }
+
+      &:before {
+        content: attr(data-label);
+        width: 40vw;
+        margin-left: 20px;
+        font-family: $Lato-Bold;
+      }
+
+      & > span {
+        width: 60vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+    }
+
+
+  }
 
   .mat-icon {
     @include icon(17px);
@@ -90,6 +114,11 @@ table {
   th { height: 65px; }
 
   th, td {
+
+    @include media(425px) {
+      & { width: 100vw !important; }
+    }
+
     &:not(:last-of-type) {
       overflow: hidden;
       width: 150px;
@@ -106,12 +135,16 @@ table {
   }
 }
 
-::ng-deep .mat-paginator-range-actions {
-  justify-content: center;
-  width: 100%;
-  padding: 15px;
-}
 
-::ng-deep .mat-paginator-range-label { margin-top: 3px !important; }
+/* PAGINATION */
+::ng-deep {
+  .mat-paginator-range-actions {
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .mat-paginator-range-label { margin-top: 3px !important; }
+}
 
 
