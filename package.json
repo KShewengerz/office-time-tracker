@@ -4,10 +4,10 @@
   "description": "An Angular and Node Express Typescript starter",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && cd ./public/ng-app && npm install",
-    "ng-start": "cd ./public/office-time-tracker && tsc && npm start",
-    "express-start": "tsc-watch --onSuccess 'nodemon --exec babel-node ./bin/www'",
-    "start": "concurrently \"npm run express-start\"  \"npm run ng-start\"",
+    "install:all": "concurrently \"npm install\" \"cd ./public/office-time-tracker && npm install\"",
+    "ng:start": "cd ./public/office-time-tracker && tsc && npm start",
+    "express:start": "tsc-watch --onSuccess 'nodemon --exec babel-node ./bin/www'",
+    "start": "concurrently \"npm run express:start\"  \"npm run ng:start\"",
     "knex:latest": "babel-node --extensions '.ts' node_modules/.bin/knex migrate:latest --knexfile knexfile.ts",
     "knex:rollback": "babel-node --extensions '.ts' node_modules/.bin/knex migrate:rollback --knexfile knexfile.ts"
   },
@@ -69,8 +69,6 @@
     "@types/knex": "^0.16.1",
     "@types/morgan": "^1.7.35",
     "@types/node": "^7.0.60",
-    "@types/passport": "^0.4.5",
-    "@types/passport-google-oauth": "^1.0.38",
     "concurrently": "^3.5.0",
     "nodemon": "^1.18.9",
     "tsc-watch": "^1.0.21",
