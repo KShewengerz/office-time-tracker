@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+
+import { Employee } from '@app/shared/models/employee.model';
 
 export interface PeriodicElement {
   name: string;
@@ -46,6 +48,8 @@ export class EmployeeTableComponent implements OnInit {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  
+  @Input() employees: Employee[];
   
   constructor() {}
   

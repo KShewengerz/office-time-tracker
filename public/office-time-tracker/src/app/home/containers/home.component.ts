@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '@app/core/auth/auth.service';
+
+import { Employee } from '@app/shared/models/employee.model';
 
 
 @Component({
@@ -8,9 +11,16 @@ import { AuthService } from '@app/core/auth/auth.service';
   templateUrl : './home.component.html',
   styleUrls   : ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   
-  constructor(private authService: AuthService) {}
+  employees: Employee[] = [];
+  
+  constructor(private activeRoute: ActivatedRoute,
+              private authService: AuthService) {}
+  
+  ngOnInit(): void {
+    this.employees = this.activeRoute.snapshot.data['employees'];
+  }
   
   logOut(): void {
     this.authService.logout();
