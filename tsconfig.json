@@ -20,6 +20,7 @@
       "@app/controllers": ["controllers"],
       "@app/enums": ["shared/enums"],
       "@app/interfaces": ["shared/interfaces"],
+      "@app/constants": ["shared/constants"],
       "*": [
         "node_modules/*",
         "src/types/*"

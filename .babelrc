@@ -11,7 +11,8 @@
         "@app/helpers": ["./dist/helpers"],
         "@app/controllers": ["./dist/controllers"],
         "@app/interfaces": ["./dist/shared/interfaces"],
-        "@app/enums": ["./dist/shared/enums"]
+        "@app/enums": ["./dist/shared/enums"],
+        "@app/constants": ["./dist/shared/constants"]
       }
     }]
   ]

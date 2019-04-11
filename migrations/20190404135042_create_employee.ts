@@ -1,6 +1,7 @@
 import * as Knex from "knex";
 
 import { EmployeeTable } from '@app/enums';
+import { employees } from '@app/constants';
 
 
 export async function up(knex: Knex) {
@@ -10,7 +11,8 @@ export async function up(knex: Knex) {
     table.dateTime(EmployeeTable.ClockIn);
     table.dateTime(EmployeeTable.ClockOut);
     table.boolean(EmployeeTable.Active);
-  });
+  })
+  .then(async() => await knex(EmployeeTable.Table).insert(employees));
 }
 
 
