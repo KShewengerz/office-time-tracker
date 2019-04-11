@@ -18,17 +18,9 @@
 `This will be used as a basis to run our knex migration scripts in creating tables`
 
 ##### 3.) Run Knex Migration Scripts
-`$ npm run knex:latest`
-
-or 
-
-`$ npm run knex:rollback` if you want to undo the migration
+`$ npm run knex:latest` or  `$ npm run knex:rollback` if you want to undo the migration
 
 ##### 4.) Run the application
 
-`$ npm start`
-
-or if you want to run it separately:
-
-`npm run ng:start` and `npm run express:start`
+`$ npm start` or if you want to run it separately: `npm run ng:start` and `npm run express:start`
 
