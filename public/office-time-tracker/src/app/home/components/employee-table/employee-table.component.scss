@@ -71,14 +71,14 @@ table {
 
   td.delete {
     color: white;
-     background-color: #de5d56;
+    background-color: #de5d56;
 
-     .mat-icon {
+    .mat-icon {
        color: white;
        font-weight: bold;
 
        &:hover { transform: scale(1.2); }
-     }
+    }
   }
 
   th {

@@ -72,16 +72,15 @@
         <td mat-cell
             data-label="Actions"
             [class.delete]="isDeleteState[element.id]"
-            *matCellDef="let element">
+            *matCellDef="let element; let i = dataIndex">
 
           <span *ngIf="!isDeleteActivated && !isDeleteState[element.id]">
             <mat-icon>edit</mat-icon>
-            <mat-icon (mousedown)="changeDeleteState(element.id)"
-                      (click)="deleteEmployee(element.id)">delete</mat-icon>
+            <mat-icon (mousedown)="changeDeleteState(element.id)">delete</mat-icon>
           </span>
 
           <span [hidden]="!isDeleteState[element.id]">
-            <mat-icon>done</mat-icon>
+            <mat-icon (click)="deleteEmployee(element.id, i)">done</mat-icon>
             <mat-icon (mousedown)="changeDeleteState(element.id)">clear</mat-icon>
           </span>
 

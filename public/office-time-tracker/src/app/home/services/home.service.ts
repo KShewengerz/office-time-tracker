@@ -21,10 +21,6 @@ export class HomeService extends RestService {
     return this.request(this.url, HttpMethodEnum.GET);
   }
   
-  getEmployee(id: number): Observable<ResponseStatus> {
-    return this.request(this.url + id, HttpMethodEnum.GET);
-  }
-  
   addEmployee(body: any): Observable<ResponseStatus> {
     return this.request(this.url, HttpMethodEnum.POST, body);
   }
@@ -33,8 +29,8 @@ export class HomeService extends RestService {
     return this.request(this.url, HttpMethodEnum.PUT);
   }
   
-  deleteEmployee(): Observable<ResponseStatus> {
-    return this.request(this.url, HttpMethodEnum.DEL);
+  deleteEmployee(id: number): Observable<ResponseStatus> {
+    return this.request(`${this.url}/${id}`, HttpMethodEnum.DEL);
   }
   
 }

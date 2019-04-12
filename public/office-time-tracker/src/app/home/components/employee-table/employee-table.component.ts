@@ -4,6 +4,8 @@ import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { Employee } from '@app/shared/models/employee.model';
 
+import { HomeService } from '@app/home/services/home.service';
+
 
 @Component({
   selector    : 'app-employee-table',
@@ -18,9 +20,7 @@ export class EmployeeTableComponent implements OnInit {
   @Input()
   set employees({ body }) {
     this.isDeleteState = body.reduce((acc, { id }) => Object.assign(acc, { [id]: false }), {});
-
     this.dataSource = new MatTableDataSource<Employee[]>(body);
-    
   }
   
   displayedColumns: string[] = ['name', 'clockIn', 'clockOut', 'active', 'action'];
@@ -29,20 +29,27 @@ export class EmployeeTableComponent implements OnInit {
   isDeleteActivated: boolean = false;
   isDeleteState: any;
   
-  constructor() {}
+  constructor(private homeService: HomeService) {}
   
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   
-  deleteEmployee(id: number): void {
-  
-  }
-  
   changeDeleteState(id: number): void {
     this.isDeleteActivated = !this.isDeleteActivated;
     this.isDeleteState[id] = !this.isDeleteState[id];
+  }
+  
+  deleteEmployee(id: number, index: number): void {
+    this.homeService
+      .deleteEmployee(id)
+      .subscribe(() => {
+        this.dataSource.data.splice(index, 1);
+        this.dataSource._updateChangeSubscription();
+  
+        this.changeDeleteState(id);
+      });
   }
   
 }
