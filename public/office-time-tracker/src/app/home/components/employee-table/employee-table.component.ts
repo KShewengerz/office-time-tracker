@@ -17,17 +17,32 @@ export class EmployeeTableComponent implements OnInit {
   
   @Input()
   set employees({ body }) {
+    this.isDeleteState = body.reduce((acc, { id }) => Object.assign(acc, { [id]: false }), {});
+
     this.dataSource = new MatTableDataSource<Employee[]>(body);
+    
   }
   
   displayedColumns: string[] = ['name', 'clockIn', 'clockOut', 'active', 'action'];
   dataSource: MatTableDataSource<Employee[]>;
+  
+  isDeleteActivated: boolean = false;
+  isDeleteState: any;
   
   constructor() {}
   
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+  
+  deleteEmployee(id: number): void {
+  
+  }
+  
+  changeDeleteState(id: number): void {
+    this.isDeleteActivated = !this.isDeleteActivated;
+    this.isDeleteState[id] = !this.isDeleteState[id];
   }
   
 }

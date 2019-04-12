@@ -69,6 +69,18 @@ table {
     &:last-child { color: #c13136; }
   }
 
+  td.delete {
+    color: white;
+     background-color: #de5d56;
+
+     .mat-icon {
+       color: white;
+       font-weight: bold;
+
+       &:hover { transform: scale(1.2); }
+     }
+  }
+
   th {
     color: #000000ab;
     font-family: $Lato-Bold;
