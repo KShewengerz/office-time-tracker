@@ -1,6 +1,8 @@
 # Office Time Tracker
 > An Angular 7 and Node Express with KnexJS and PostgreSQL application that tracks employee's time-in and time-out
 
+![time_tracker](./shared/images/time-tracker.gif)
+
 
 #### Back End Tools used:
 `Express` `NodeJS` `Typescript` `Babel` `Nodemon` `KnexJS` `PostgreSQL` `Bcrypt` `JWT` `Express JWT` 
