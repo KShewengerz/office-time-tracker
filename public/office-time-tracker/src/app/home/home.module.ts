@@ -7,6 +7,7 @@ import { HomeRoutingModule } from '@app/home/home-routing.module';
 import { HomeComponent } from '@app/home/containers/home.component';
 import { DateBannerComponent } from '@app/home/components/date-banner/date-banner.component';
 import { EmployeeTableComponent } from '@app/home/components/employee-table/employee-table.component';
+import { AddEmployeeBtnComponent } from '@app/home/components/employee-table/components/add-employee-btn/add-employee-btn.component';
 
 
 
@@ -19,7 +20,8 @@ import { EmployeeTableComponent } from '@app/home/components/employee-table/empl
   declarations: [
     HomeComponent,
     DateBannerComponent,
-    EmployeeTableComponent
+    EmployeeTableComponent,
+    AddEmployeeBtnComponent
   ]
 })
 export class HomeModule {}
