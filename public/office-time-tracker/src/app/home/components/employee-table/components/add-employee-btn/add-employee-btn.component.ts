@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -8,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AddEmployeeBtnComponent {
   
+  @Output() showEmployeeForm: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
+  isAddEmployeeFormActive: boolean;
+  
   constructor() {}
+  
+  emitShowEmployeeForm(): void {
+    this.isAddEmployeeFormActive = !this.isAddEmployeeFormActive;
+    this.showEmployeeForm.emit(this.isAddEmployeeFormActive);
+  }
   
 }

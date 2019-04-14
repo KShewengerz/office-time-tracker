@@ -1,7 +1,7 @@
 <div class="container">
 
   <!-- ADD EMPLOYEE BUTTON -->
-  <app-add-employee-btn></app-add-employee-btn>
+  <app-add-employee-btn (showEmployeeForm)="showForm($event)"></app-add-employee-btn>
 
   <!-- EMPLOYEE TABLE-->
   <div class="mat-elevation-z8">
@@ -18,7 +18,16 @@
         <td mat-cell
             data-label="Name"
             *matCellDef="let element">
-          <span>{{ element.name }}</span>
+
+          <span *ngIf="element.name">{{ element.name }}</span>
+
+          <span *ngIf="!element.name">
+            <mat-form-field floatLabel="never">
+              <input matInput
+                     [placeholder]="element.name">
+            </mat-form-field>
+          </span>
+
         </td>
       </ng-container>
 
@@ -30,7 +39,11 @@
         <td mat-cell
             data-label="Clock In"
             *matCellDef="let element">
+
           <span>{{ element.clockIn | date: 'shortTime' }}</span>
+
+
+
         </td>
       </ng-container>
 
@@ -71,17 +84,17 @@
 
         <td mat-cell
             data-label="Actions"
-            [class.delete]="isDeleteState[element.id]"
+            [class.active]="isChangeState[element.id] || element.action"
             *matCellDef="let element; let i = dataIndex">
 
-          <span *ngIf="!isDeleteActivated && !isDeleteState[element.id]">
-            <mat-icon>edit</mat-icon>
-            <mat-icon (mousedown)="changeDeleteState(element.id)">delete</mat-icon>
+          <span *ngIf="!isChangeState[element.id] && !element.action && !isAddState">
+            <mat-icon (mousedown)="changeState(element.action, element.id)">edit</mat-icon>
+            <mat-icon (mousedown)="changeState(element.action, element.id)">delete</mat-icon>
           </span>
 
-          <span [hidden]="!isDeleteState[element.id]">
-            <mat-icon (click)="deleteEmployee(element.id, i)">done</mat-icon>
-            <mat-icon (mousedown)="changeDeleteState(element.id)">clear</mat-icon>
+          <span [hidden]="!isChangeState[element.id] && !element.action">
+            <mat-icon (click)="save(element.action, element, i)">done</mat-icon>
+            <mat-icon (mousedown)="changeState(element.action, element.id)">clear</mat-icon>
           </span>
 
         </td>

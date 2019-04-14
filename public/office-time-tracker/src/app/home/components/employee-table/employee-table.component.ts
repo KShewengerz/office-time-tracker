@@ -19,15 +19,15 @@ export class EmployeeTableComponent implements OnInit {
   
   @Input()
   set employees({ body }) {
-    this.isDeleteState = body.reduce((acc, { id }) => Object.assign(acc, { [id]: false }), {});
-    this.dataSource = new MatTableDataSource<Employee[]>(body);
+    this.isChangeState = body.reduce((acc, { id }) => Object.assign(acc, { [id]: false }), {});
+    this.dataSource = new MatTableDataSource<Employee>(body);
   }
   
   displayedColumns: string[] = ['name', 'clockIn', 'clockOut', 'active', 'action'];
-  dataSource: MatTableDataSource<Employee[]>;
+  dataSource: MatTableDataSource<any>;
   
-  isDeleteActivated: boolean = false;
-  isDeleteState: any;
+  isAddState: boolean;
+  isChangeState: any;
   
   constructor(private homeService: HomeService) {}
   
@@ -36,19 +36,71 @@ export class EmployeeTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   
-  changeDeleteState(id: number): void {
-    this.isDeleteActivated = !this.isDeleteActivated;
-    this.isDeleteState[id] = !this.isDeleteState[id];
+  showForm(isShow: boolean): void {
+    const data: Employee    = { name: null, clockIn: null, clockOut: null, active: null, action: 'add' };
+  
+    this.isAddState = !this.isAddState;
+    
+    this.dataSource.data.unshift(data);
+    this.dataSource._updateChangeSubscription();
   }
   
-  deleteEmployee(id: number, index: number): void {
+  changeState(action: string, id: number): void {
+    this.isChangeState[id] = !this.isChangeState[id];
+    
+    if (action) {
+      if (action === 'add') {
+        this.isAddState = !this.isAddState;
+        
+        this.dataSource.data.shift();
+        this.dataSource._updateChangeSubscription();
+      }
+      
+      this.dataSource.data.map(data => {
+        if (data.id === id) data.action = null;
+        return data;
+      });
+    }
+  }
+  
+  save(action: string, body: Employee, index?: number): void {
+    action === 'add'
+      ? this.addEmployee(body)
+      : action === 'edit'
+      ? this.updateEmployee(body, index)
+      : this.deleteEmployee(index);
+  }
+  
+  addEmployee(body: Employee): void {
     this.homeService
-      .deleteEmployee(id)
-      .subscribe(() => {
+      .addEmployee(body)
+      .subscribe(({ body }: any) => {
+        this.dataSource.data.splice(0, 1, body);
+        this.dataSource._updateChangeSubscription();
+  
+        this.changeState('add', body.id);
+      });
+  }
+  
+  updateEmployee(body: Employee, index: number): void {
+    this.homeService
+      .updateEmployee(body)
+      .subscribe(({ body }: any) => {
+        this.dataSource.data.splice(index, 1, body);
+        this.dataSource._updateChangeSubscription();
+  
+        this.changeState('edit', body.id);
+      });
+  }
+  
+  deleteEmployee(index: number): void {
+    this.homeService
+      .deleteEmployee(index)
+      .subscribe(({ body }: any) => {
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
   
-        this.changeDeleteState(id);
+        this.changeState(null, body.id);
       });
   }
   
