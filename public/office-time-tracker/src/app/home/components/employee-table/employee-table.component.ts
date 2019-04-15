@@ -40,7 +40,7 @@ export class EmployeeTableComponent implements OnInit {
   }
   
   showAddForm(isShow: boolean): void {
-    const data: Employee    = { action: 'add', name: null, clockIn: null, clockOut: null, active: false };
+    const data: Employee    = { action: 'add', name: null, clockIn: '06:00 am', clockOut: null, active: false };
     
     this.isFormActivated = !this.isFormActivated;
     
@@ -55,13 +55,13 @@ export class EmployeeTableComponent implements OnInit {
   
   changeState(action: string, id: number, isProcessed?: boolean): void {
     if (!this.isChangeState[id] && action === 'add') this.isChangeState[id] = true;
-
+    
     this.isChangeState[id] = !this.isChangeState[id];
     this.isFormActivated   = !this.isFormActivated;
-
+    
     if (action) {
       this.dataSource.data.map(data => data.id === id ? Object.assign(data, { action: null }) : data);
-
+      
       if (action === 'add' && !isProcessed) {
         this.dataSource.data.shift();
         this.dataSource._updateChangeSubscription();
@@ -111,6 +111,8 @@ export class EmployeeTableComponent implements OnInit {
       .subscribe(({ body }: any) => {
         this.dataSource.data.splice(index, 1, body);
         this.dataSource._updateChangeSubscription();
+        
+        this.isChangeState[body.id] = true;
 
         this.changeState('edit', body.id);
         this.showSnackbar('Updated');

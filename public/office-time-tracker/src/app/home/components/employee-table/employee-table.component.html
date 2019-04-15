@@ -55,8 +55,9 @@
                        tabIndex="-1"
                        min="6:00 am"
                        readonly
-                       placeholder="Clock In"
+                       [placeholder]="element.clockIn.match('-') ? (element.clockIn | date: 'shortTime') : 'Clock In'"
                        [(ngModel)]="element.clockIn"
+                       [value]="element.clockIn.match('-') ? (element.clockIn | date: 'shortTime') : element.clockIn"
                        [ngxTimepicker]="clockInPicker">
                 <ngx-material-timepicker #clockInPicker></ngx-material-timepicker>
               </mat-form-field>
@@ -84,9 +85,10 @@
                        required
                        tabIndex="-1"
                        readonly
-                       placeholder="Clock Out"
+                       [placeholder]="element.clockOut?.match('-') && element.action !== 'add' ? (element.clockOut | date: 'shortTime') : 'Clock Out'"
                        [min]="element.clockIn"
                        [(ngModel)]="element.clockOut"
+                       [value]="element.clockOut?.match('-') && element.action !== 'add' ? (element.clockOut | date: 'shortTime') : element.clockOut"
                        [ngxTimepicker]="clockOutPicker"
                        [disabled]="!element.clockIn">
                 <ngx-material-timepicker #clockOutPicker></ngx-material-timepicker>
