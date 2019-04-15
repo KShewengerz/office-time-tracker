@@ -69,8 +69,7 @@ export class EmployeeTableComponent implements OnInit {
   }
   
   save(action: string, body: Employee, index?: number): void {
-    
-    const isEmptyFields = Object.keys(body).some(key => !body[key]);
+    const isEmptyFields = Object.keys(body).some(key => key !== 'active' ? !body[key] : false);
     
     if (isEmptyFields && action) this.showSnackbar(null, true);
     else {

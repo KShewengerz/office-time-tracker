@@ -83,7 +83,7 @@
                        name="clockOut"
                        required
                        tabIndex="-1"
-                       min="6:00 am"
+                       [min]="element.clockIn"
                        readonly
                        [placeholder]="element.clockOut ? element.clockOut : 'Clock Out'"
                        [(ngModel)]="element.clockOut"
@@ -125,7 +125,7 @@
           <td mat-cell
               data-label="Actions"
               [class.active]="isChangeState[element.id] || element.action"
-              *matCellDef="let element; let i = dataIndex">
+              *matCellDef="let element; let i = index">
 
             <span *ngIf="!isChangeState[element.id] && !element.action">
               <mat-icon (mousedown)="changeState(element.action, element.id)">edit</mat-icon>

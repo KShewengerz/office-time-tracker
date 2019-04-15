@@ -149,7 +149,9 @@ table {
     padding: 15px;
   }
 
-  .mat-paginator-range-label { margin-top: 3px !important; }
+  .mat-paginator-range-label {
+    margin-top: 3px !important;
+  }
 
   div:not(.mat-sort-header-sorted) > .mat-sort-header-arrow {
     opacity: 0.54 !important;
@@ -157,23 +159,29 @@ table {
   }
 
   /* SNACKBAR */
-  %text-white { color: white; }
+  %text-white {
+    color: white;
+  }
 
   .mat-simple-snackbar {
     @extend %text-white;
     font-family: $Lato-Bold;
   }
 
-  .mat-simple-snackbar-action { @extend %text-white; }
+  .mat-simple-snackbar-action {
+    @extend %text-white;
+  }
 
 
   /* TIMEPICKER */
   .timepicker__header,
-  .clock-face__number > span.active { background-color: #ff6d64 !important; }
+  .clock-face__number > span.active,
+  .clock-face__clock-hand {
+    background-color: #ff6d64 !important;
+  }
 
-  .ng-tns-c9-4 {
-    --clock-hand-color: #ff6d64 !important;
-    --button-color: #ff6d64 !important;
+  .timepicker-button {
+    color: #ff6d64 !important;
   }
 }
 
