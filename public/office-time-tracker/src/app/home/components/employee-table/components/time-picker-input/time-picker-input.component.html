@@ -1,0 +1,14 @@
+<mat-form-field floatLabel="never">
+  <input matInput
+         [name]="name"
+         required
+         tabIndex="-1"
+         readonly
+         [min]="min"
+         [placeholder]="clock?.match('-') ? (clock | date: 'shortTime') : title"
+         [value]="clock?.match('-') ? (clock | date: 'shortTime') : clock"
+         [ngxTimepicker]="clockPicker">
+
+  <ngx-material-timepicker #clockPicker
+                           (timeSet)="timeSelected.next($event)"></ngx-material-timepicker>
+</mat-form-field>

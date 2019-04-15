@@ -1,0 +1,13 @@
+.mat-form-field { width: 90%; }
+
+::ng-deep {
+  .timepicker__header,
+  .clock-face__number > span.active,
+  .clock-face__clock-hand {
+    background-color: #ff6d64 !important;
+  }
+
+  .timepicker-button {
+    color: #ff6d64 !important;
+  }
+}

@@ -48,19 +48,11 @@
             <span *ngIf="!element.action">{{ element.clockIn | date: 'shortTime' }}</span>
 
             <span *ngIf="element.action">
-              <mat-form-field floatLabel="never">
-                <input matInput
-                       name="clockIn"
-                       required
-                       tabIndex="-1"
-                       min="6:00 am"
-                       readonly
-                       [placeholder]="element.clockIn.match('-') ? (element.clockIn | date: 'shortTime') : 'Clock In'"
-                       [(ngModel)]="element.clockIn"
-                       [value]="element.clockIn.match('-') ? (element.clockIn | date: 'shortTime') : element.clockIn"
-                       [ngxTimepicker]="clockInPicker">
-                <ngx-material-timepicker #clockInPicker></ngx-material-timepicker>
-              </mat-form-field>
+                <app-time-picker-input [name]="'clockIn'"
+                                       [min]="'6:00 am'"
+                                       [title]="'Clock In'"
+                                       [clock]="element.clockIn"
+                                       (timeSelected)="element.clockIn = $event"></app-time-picker-input>
             </span>
 
 
@@ -79,20 +71,13 @@
             <span *ngIf="!element.action">{{ element.clockOut | date: 'shortTime' }}</span>
 
             <span *ngIf="element.action">
-              <mat-form-field floatLabel="never">
-                <input matInput
-                       name="clockOut"
-                       required
-                       tabIndex="-1"
-                       readonly
-                       [placeholder]="element.clockOut?.match('-') && element.action !== 'add' ? (element.clockOut | date: 'shortTime') : 'Clock Out'"
-                       [min]="element.clockIn"
-                       [(ngModel)]="element.clockOut"
-                       [value]="element.clockOut?.match('-') && element.action !== 'add' ? (element.clockOut | date: 'shortTime') : element.clockOut"
-                       [ngxTimepicker]="clockOutPicker"
-                       [disabled]="!element.clockIn">
-                <ngx-material-timepicker #clockOutPicker></ngx-material-timepicker>
-              </mat-form-field>
+
+              <app-time-picker-input [name]="'clockOut'"
+                                     [min]="element.clockIn"
+                                     [title]="'Clock Out'"
+                                     [clock]="element.clockOut"
+                                     [action]="element.action"
+                                     (timeSelected)="element.clockOut = $event"></app-time-picker-input>
             </span>
 
           </td>

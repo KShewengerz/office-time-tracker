@@ -161,17 +161,6 @@ table {
     @extend %text-white;
   }
 
-
-  /* TIMEPICKER */
-  .timepicker__header,
-  .clock-face__number > span.active,
-  .clock-face__clock-hand {
-    background-color: #ff6d64 !important;
-  }
-
-  .timepicker-button {
-    color: #ff6d64 !important;
-  }
 }
 
 

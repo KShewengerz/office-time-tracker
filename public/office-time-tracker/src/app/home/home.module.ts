@@ -12,6 +12,7 @@ import { DateBannerComponent } from '@app/home/components/date-banner/date-banne
 import { EmployeeTableComponent } from '@app/home/components/employee-table/employee-table.component';
 import { AddEmployeeBtnComponent } from '@app/home/components/employee-table/components/add-employee-btn/add-employee-btn.component';
 import { FormBtnActionsComponent } from '@app/home/components/employee-table/components/form-btn-actions/form-btn-actions.component';
+import { TimePickerInputComponent } from '@app/home/components/employee-table/components/time-picker-input/time-picker-input.component';
 
 
 
@@ -28,7 +29,8 @@ import { FormBtnActionsComponent } from '@app/home/components/employee-table/com
     DateBannerComponent,
     EmployeeTableComponent,
     AddEmployeeBtnComponent,
-    FormBtnActionsComponent
+    FormBtnActionsComponent,
+    TimePickerInputComponent
   ]
 })
 export class HomeModule {}
