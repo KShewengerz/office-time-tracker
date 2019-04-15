@@ -32,7 +32,7 @@ export async function addEmployee(req: Request, res: Response, next: NextFunctio
     const currentId = await db(EmployeeTable.Table).select(EmployeeTable.Id).orderBy(EmployeeTable.Id, 'desc').limit(1);
     body.id  = currentId[0].id;
     
-    ResponseHandler.response(res, HttpMethod.POST, title, body);
+    ResponseHandler.response(res, HttpMethod.POST, title, camelCase(body));
   }
 }
 

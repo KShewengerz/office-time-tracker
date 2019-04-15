@@ -124,15 +124,15 @@
 
           <td mat-cell
               data-label="Actions"
-              [class.active]="isChangeState[element.id] || element.action"
+              [class.active]="(isChangeState[element.id] || element.action) && isFormActivated"
               *matCellDef="let element; let i = index">
 
-            <span *ngIf="!isChangeState[element.id] && !element.action">
+            <span *ngIf="(!isChangeState[element.id] || !element.action) && !isFormActivated">
               <mat-icon (mousedown)="changeState(element.action, element.id)">edit</mat-icon>
               <mat-icon (mousedown)="changeState(element.action, element.id)">delete</mat-icon>
             </span>
 
-            <span [hidden]="!isChangeState[element.id] && !element.action">
+            <span [hidden]="!isChangeState[element.id] && !element.action || !isFormActivated">
               <mat-icon (click)="save(element.action, element, i)">done</mat-icon>
               <mat-icon (mousedown)="changeState(element.action, element.id)">clear</mat-icon>
             </span>

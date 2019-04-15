@@ -29,6 +29,7 @@ export class EmployeeTableComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   
   isChangeState: any;
+  isFormActivated: boolean = false;
   
   constructor(private snackBar: MatSnackBar,
               private homeService: HomeService) {}
@@ -41,14 +42,17 @@ export class EmployeeTableComponent implements OnInit {
   showForm(isShow: boolean): void {
     const data: Employee    = { action: 'add', name: null, clockIn: null, clockOut: null, active: false };
     
+    this.isFormActivated = !this.isFormActivated;
+    
     this.dataSource.data.unshift(data);
     this.dataSource._updateChangeSubscription();
   }
   
-  changeState(action: string, id: number): void {
-    if (!this.isChangeState[id]) this.isChangeState[id] = false;
-    
+  changeState(action: string, id: number, isProcessed?: boolean): void {
+    if (!this.isChangeState[id] && action === 'add') this.isChangeState[id] = true;
+  
     this.isChangeState[id] = !this.isChangeState[id];
+    this.isFormActivated   = !this.isFormActivated;
     
     if (action) {
       this.dataSource.data.map(data => {
@@ -56,7 +60,7 @@ export class EmployeeTableComponent implements OnInit {
         return data;
       });
       
-      if (action === 'add') {
+      if (action === 'add' && !isProcessed) {
         this.dataSource.data.shift();
         this.dataSource._updateChangeSubscription();
       }
@@ -90,10 +94,11 @@ export class EmployeeTableComponent implements OnInit {
     this.homeService
       .addEmployee(rest)
       .subscribe(({ body }: any) => {
+        this.dataSource.data.shift();
         this.dataSource.data.unshift(body);
         this.dataSource._updateChangeSubscription();
 
-        this.changeState('add', body.id);
+        this.changeState('add', body.id, true);
         this.showSnackbar('Added');
       });
   }
