@@ -59,8 +59,9 @@ table {
   }
 
 
-  /* TABLE ACTION ICONS */
+  /* TABLE ROWS AND HEADERS */
   td.active {
+    color: white;
     background-color: #de5d56;
 
     ::ng-deep .mat-icon {
