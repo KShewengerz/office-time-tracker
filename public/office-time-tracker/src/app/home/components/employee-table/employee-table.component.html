@@ -1,7 +1,7 @@
 <div class="container">
 
   <!-- ADD EMPLOYEE BUTTON -->
-  <app-add-employee-btn (showEmployeeForm)="showForm($event)"></app-add-employee-btn>
+  <app-add-employee-btn (showEmployeeForm)="showAddForm($event)"></app-add-employee-btn>
 
   <!-- EMPLOYEE TABLE-->
   <form #form="ngForm"
@@ -28,7 +28,7 @@
                 <input matInput
                        name="name"
                        required
-                       [placeholder]="element.name ? element.name : 'Name'"
+                       placeholder="Name"
                        [(ngModel)]="element.name">
               </mat-form-field>
             </span>
@@ -55,7 +55,7 @@
                        tabIndex="-1"
                        min="6:00 am"
                        readonly
-                       [placeholder]="element.clockIn ? element.clockIn : 'Clock In'"
+                       placeholder="Clock In"
                        [(ngModel)]="element.clockIn"
                        [ngxTimepicker]="clockInPicker">
                 <ngx-material-timepicker #clockInPicker></ngx-material-timepicker>
@@ -83,9 +83,9 @@
                        name="clockOut"
                        required
                        tabIndex="-1"
-                       [min]="element.clockIn"
                        readonly
-                       [placeholder]="element.clockOut ? element.clockOut : 'Clock Out'"
+                       placeholder="Clock Out"
+                       [min]="element.clockIn"
                        [(ngModel)]="element.clockOut"
                        [ngxTimepicker]="clockOutPicker"
                        [disabled]="!element.clockIn">
@@ -128,13 +128,13 @@
               *matCellDef="let element; let i = index">
 
             <span *ngIf="(!isChangeState[element.id] || !element.action) && !isFormActivated">
-              <mat-icon (mousedown)="changeState(element.action, element.id)">edit</mat-icon>
-              <mat-icon (mousedown)="changeState(element.action, element.id)">delete</mat-icon>
+              <mat-icon (click)="showEditForm(element.id)">edit</mat-icon>
+              <mat-icon (click)="changeState(element.action, element.id)">delete</mat-icon>
             </span>
 
             <span [hidden]="!isChangeState[element.id] && !element.action || !isFormActivated">
               <mat-icon (click)="save(element.action, element, i)">done</mat-icon>
-              <mat-icon (mousedown)="changeState(element.action, element.id)">clear</mat-icon>
+              <mat-icon (click)="changeState(element.action, element.id)">clear</mat-icon>
             </span>
 
           </td>

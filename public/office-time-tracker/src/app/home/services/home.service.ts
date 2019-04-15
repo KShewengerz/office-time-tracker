@@ -26,7 +26,7 @@ export class HomeService extends RestService {
   }
   
   updateEmployee(body: any): Observable<ResponseStatus> {
-    return this.request(this.url, HttpMethodEnum.PUT);
+    return this.request(this.url, HttpMethodEnum.PUT, body);
   }
   
   deleteEmployee(id: number): Observable<ResponseStatus> {

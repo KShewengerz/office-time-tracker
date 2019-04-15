@@ -39,7 +39,7 @@ export class EmployeeTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   
-  showForm(isShow: boolean): void {
+  showAddForm(isShow: boolean): void {
     const data: Employee    = { action: 'add', name: null, clockIn: null, clockOut: null, active: false };
     
     this.isFormActivated = !this.isFormActivated;
@@ -48,18 +48,20 @@ export class EmployeeTableComponent implements OnInit {
     this.dataSource._updateChangeSubscription();
   }
   
+  showEditForm(id: number): void {
+    this.isFormActivated = !this.isFormActivated;
+    this.dataSource.data.map(data => data.id === id ? Object.assign(data, { action: 'edit' }) : data);
+  }
+  
   changeState(action: string, id: number, isProcessed?: boolean): void {
     if (!this.isChangeState[id] && action === 'add') this.isChangeState[id] = true;
-  
+
     this.isChangeState[id] = !this.isChangeState[id];
     this.isFormActivated   = !this.isFormActivated;
-    
+
     if (action) {
-      this.dataSource.data.map(data => {
-        if (data.id === id) data.action = null;
-        return data;
-      });
-      
+      this.dataSource.data.map(data => data.id === id ? Object.assign(data, { action: null }) : data);
+
       if (action === 'add' && !isProcessed) {
         this.dataSource.data.shift();
         this.dataSource._updateChangeSubscription();
@@ -77,22 +79,22 @@ export class EmployeeTableComponent implements OnInit {
     
     if (isEmptyFields && action) this.showSnackbar(null, true);
     else {
+      body.clockIn  = moment(body.clockIn, ['LT']).format('YYYY-MM-DD h:mm:ss a');
+      body.clockOut = moment(body.clockOut, ['LT']).format('YYYY-MM-DD h:mm:ss a');
+      
+      const { action, ...rest } = body;
+      
       action === 'add'
-        ? this.addEmployee(body)
+        ? this.addEmployee(rest)
         : action === 'edit'
-        ? this.updateEmployee(body, index)
+        ? this.updateEmployee(rest, index)
         : this.deleteEmployee(body.id, index);
     }
   }
   
   addEmployee(body: Employee): void {
-    body.clockIn  = moment(body.clockIn, ['LT']).format('YYYY-MM-DD h:mm:ss a');
-    body.clockOut = moment(body.clockOut, ['LT']).format('YYYY-MM-DD h:mm:ss a');
-    
-    const { action, ...rest } = body;
-    
     this.homeService
-      .addEmployee(rest)
+      .addEmployee(body)
       .subscribe(({ body }: any) => {
         this.dataSource.data.shift();
         this.dataSource.data.unshift(body);
@@ -104,12 +106,12 @@ export class EmployeeTableComponent implements OnInit {
   }
   
   updateEmployee(body: Employee, index: number): void {
-    this.homeService
+     this.homeService
       .updateEmployee(body)
       .subscribe(({ body }: any) => {
         this.dataSource.data.splice(index, 1, body);
         this.dataSource._updateChangeSubscription();
-  
+
         this.changeState('edit', body.id);
         this.showSnackbar('Updated');
       });

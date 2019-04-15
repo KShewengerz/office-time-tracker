@@ -57,7 +57,7 @@ export async function updateEmployee(req: Request, res: Response, next: NextFunc
     .update(body)
     .catch(err => err);
   
-  if (employee) ResponseHandler.response(res, HttpMethod.PUT, title, body);
+  if (employee) ResponseHandler.response(res, HttpMethod.PUT, title, camelCase(body));
   else ErrorHandler.customError(res, HttpStatusCode.NOT_FOUND, title, ErrorType.NOT_FOUND);
 }
 

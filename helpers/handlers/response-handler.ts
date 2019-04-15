@@ -3,6 +3,8 @@ import { Response } from 'express';
 import { ResponseMessage } from '@app/interfaces';
 import { HttpMethod, HttpStatusCode, CustomMethod } from '@app/enums';
 
+const camelCase = require('camelcase-keys');
+
 
 export class ResponseHandler {
 
