@@ -40,12 +40,14 @@ export class EmployeeTableComponent implements OnInit {
   }
   
   showAddForm(isShow: boolean): void {
-    const data: Employee    = { action: 'add', name: null, clockIn: '06:00 am', clockOut: null, active: false };
-    
-    this.isFormActivated = !this.isFormActivated;
-    
-    this.dataSource.data.unshift(data);
-    this.dataSource._updateChangeSubscription();
+    if (!this.isFormActivated) {
+      const data: Employee    = { action: 'add', name: null, clockIn: '06:00 am', clockOut: null, active: false };
+  
+      this.isFormActivated = !this.isFormActivated;
+  
+      this.dataSource.data.unshift(data);
+      this.dataSource._updateChangeSubscription();
+    }
   }
   
   showEditForm(id: number): void {
