@@ -20,14 +20,18 @@ Installs both front end and backend dependencies
 
 ##### 2.) Edit `.env` file (DEV_DB_*) based on your local postgresql configuration 
 
-##### 3.) Run Knex Migration Scripts
+##### 3.) Create Database on your postgresql/psql based on the credentials set from `Step #2` on your `.env` file
+
+##### 4.) Run $ tsc on your terminal to generate the `./dist` folder
+
+##### 5.) Run Knex Migration Scripts
 
 `$ npm run knex:latest` 
 
 or  `$ npm run knex:rollback` if you want to undo the migration
 
 
-##### 4.) Run the application
+##### 6.) Run the application
 
 `$ npm start` to run both node and angular 
 
