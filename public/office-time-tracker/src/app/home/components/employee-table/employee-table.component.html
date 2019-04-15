@@ -4,108 +4,150 @@
   <app-add-employee-btn (showEmployeeForm)="showForm($event)"></app-add-employee-btn>
 
   <!-- EMPLOYEE TABLE-->
-  <div class="mat-elevation-z8">
-    <table mat-table
-           matSort
-           [dataSource]="dataSource">
+  <form #form="ngForm"
+        novalidate>
+    <div class="mat-elevation-z8">
+      <table mat-table
+             matSort
+             [dataSource]="dataSource">
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell
-            mat-sort-header
-            *matHeaderCellDef> Name </th>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell
+              mat-sort-header
+              *matHeaderCellDef> Name </th>
 
-        <td mat-cell
-            data-label="Name"
-            *matCellDef="let element">
+          <td mat-cell
+              data-label="Name"
+              *matCellDef="let element">
 
-          <span *ngIf="element.name">{{ element.name }}</span>
+            <span *ngIf="!element.action">{{ element.name }}</span>
 
-          <span *ngIf="!element.name">
-            <mat-form-field floatLabel="never">
-              <input matInput
-                     [placeholder]="element.name">
-            </mat-form-field>
-          </span>
+            <span *ngIf="element.action">
+              <mat-form-field floatLabel="never">
+                <input matInput
+                       name="name"
+                       required
+                       [placeholder]="element.name ? element.name : 'Name'"
+                       [(ngModel)]="element.name">
+              </mat-form-field>
+            </span>
 
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <!-- Time In Column -->
-      <ng-container matColumnDef="clockIn">
-        <th mat-header-cell
-            *matHeaderCellDef> Clock In </th>
+        <!-- Time In Column -->
+        <ng-container matColumnDef="clockIn">
+          <th mat-header-cell
+              *matHeaderCellDef> Clock In </th>
 
-        <td mat-cell
-            data-label="Clock In"
-            *matCellDef="let element">
+          <td mat-cell
+              data-label="Clock In"
+              *matCellDef="let element">
 
-          <span>{{ element.clockIn | date: 'shortTime' }}</span>
+            <span *ngIf="!element.action">{{ element.clockIn | date: 'shortTime' }}</span>
+
+            <span *ngIf="element.action">
+              <mat-form-field floatLabel="never">
+                <input matInput
+                       name="clockIn"
+                       required
+                       tabIndex="-1"
+                       min="6:00 am"
+                       readonly
+                       [placeholder]="element.clockIn ? element.clockIn : 'Clock In'"
+                       [(ngModel)]="element.clockIn"
+                       [ngxTimepicker]="clockInPicker">
+                <ngx-material-timepicker #clockInPicker></ngx-material-timepicker>
+              </mat-form-field>
+            </span>
 
 
+          </td>
+        </ng-container>
 
-        </td>
-      </ng-container>
+        <!-- Time Out Column -->
+        <ng-container matColumnDef="clockOut">
+          <th mat-header-cell
+              *matHeaderCellDef> Time Out </th>
 
-      <!-- Time Out Column -->
-      <ng-container matColumnDef="clockOut">
-        <th mat-header-cell
-            *matHeaderCellDef> Time Out </th>
+          <td mat-cell
+              data-label="Clock Out"
+              *matCellDef="let element">
 
-        <td mat-cell
-            data-label="Clock Out"
-            *matCellDef="let element">
-          <span>{{ element.clockOut | date: 'shortTime' }}</span>
-        </td>
-      </ng-container>
+            <span *ngIf="!element.action">{{ element.clockOut | date: 'shortTime' }}</span>
 
-      <!-- ACTIVE -->
-      <ng-container matColumnDef="active">
-        <th mat-header-cell
-            mat-sort-header
-            *matHeaderCellDef> Active </th>
+            <span *ngIf="element.action">
+              <mat-form-field floatLabel="never">
+                <input matInput
+                       name="clockOut"
+                       required
+                       tabIndex="-1"
+                       min="6:00 am"
+                       readonly
+                       [placeholder]="element.clockOut ? element.clockOut : 'Clock Out'"
+                       [(ngModel)]="element.clockOut"
+                       [ngxTimepicker]="clockOutPicker"
+                       [disabled]="!element.clockIn">
+                <ngx-material-timepicker #clockOutPicker></ngx-material-timepicker>
+              </mat-form-field>
+            </span>
 
-        <td mat-cell
-            data-label="Active"
-            *matCellDef="let element">
-          <span>
-            <button mat-stroked-button
-                    [class.active]="element.active">
-              {{ element.active ? 'Active' : 'Inactive' }}
-            </button>
-          </span>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <!-- ACTION BUTTONS -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell
-            *matHeaderCellDef></th>
+        <!-- ACTIVE -->
+        <ng-container matColumnDef="active">
+          <th mat-header-cell
+              mat-sort-header
+              *matHeaderCellDef> Active </th>
 
-        <td mat-cell
-            data-label="Actions"
-            [class.active]="isChangeState[element.id] || element.action"
-            *matCellDef="let element; let i = dataIndex">
+          <td mat-cell
+              data-label="Active"
+              *matCellDef="let element">
+            <span>
 
-          <span *ngIf="!isChangeState[element.id] && !element.action && !isAddState">
-            <mat-icon (mousedown)="changeState(element.action, element.id)">edit</mat-icon>
-            <mat-icon (mousedown)="changeState(element.action, element.id)">delete</mat-icon>
-          </span>
+              <button mat-stroked-button
+                      [ngClass]="{ 'active': element.active, 'pointer-none': !element.action } "
+                      (click)="element.active = !element.active">
+                {{ element.active ? 'Active' : 'Inactive' }}
+              </button>
 
-          <span [hidden]="!isChangeState[element.id] && !element.action">
-            <mat-icon (click)="save(element.action, element, i)">done</mat-icon>
-            <mat-icon (mousedown)="changeState(element.action, element.id)">clear</mat-icon>
-          </span>
+            </span>
+          </td>
+        </ng-container>
 
-        </td>
-      </ng-container>
+        <!-- ACTION BUTTONS -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell
+              *matHeaderCellDef></th>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+          <td mat-cell
+              data-label="Actions"
+              [class.active]="isChangeState[element.id] || element.action"
+              *matCellDef="let element; let i = dataIndex">
 
-    <!-- PAGINATOR -->
-    <mat-paginator [pageSizeOptions]="[8]"
-                   hidePageSize="true"></mat-paginator>
-  </div><!-- .mat-elevation-z8 -->
+            <span *ngIf="!isChangeState[element.id] && !element.action">
+              <mat-icon (mousedown)="changeState(element.action, element.id)">edit</mat-icon>
+              <mat-icon (mousedown)="changeState(element.action, element.id)">delete</mat-icon>
+            </span>
+
+            <span [hidden]="!isChangeState[element.id] && !element.action">
+              <mat-icon (click)="save(element.action, element, i)">done</mat-icon>
+              <mat-icon (mousedown)="changeState(element.action, element.id)">clear</mat-icon>
+            </span>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- PAGINATOR -->
+      <mat-paginator [pageSizeOptions]="[8]"
+                     hidePageSize="true"></mat-paginator>
+    </div><!-- .mat-elevation-z8 -->
+  </form>
+
 </div><!-- END .container -->

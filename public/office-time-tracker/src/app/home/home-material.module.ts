@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MatToolbarModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatToolbarModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
 
 
 @NgModule({
@@ -8,7 +8,8 @@ import { MatToolbarModule, MatTableModule, MatPaginatorModule, MatSortModule } f
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ]
 })
 export class HomeMaterialModule {}

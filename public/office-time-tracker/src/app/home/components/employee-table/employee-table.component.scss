@@ -6,6 +6,8 @@
 /* CONTAINER */
 .container { margin-bottom: 70px; }
 
+.pointer-none { pointer-events: none; }
+
 
 /* TABLE */
 table {
@@ -112,7 +114,8 @@ table {
 
   /* ACTIVE / INACTIVE BUTTON */
   .mat-stroked-button {
-    @mixin set-button-border-bg($border-color, $bg-color) {
+    @mixin set-button-border-bg($border-color, $bg-color, $font-color: #00000099) {
+      color: $font-color;
       border-color: $border-color;
       background-color: $bg-color;
     }
@@ -126,15 +129,20 @@ table {
 
     @include set-button-border-bg(#00000030, #f3f3f3);
 
-    &.active { @include set-button-border-bg(#629c44, white); }
+    &.active { @include set-button-border-bg(#629c44, white, #629c44); }
 
     ::ng-deep .mat-button-focus-overlay { display: none; }
   }
 }
 
 
-/* PAGINATION */
+/* FORM FIELD */
+.mat-form-field { width: 90%; }
+
+
 ::ng-deep {
+
+  /* PAGINATION */
   .mat-paginator-range-actions {
     justify-content: center;
     width: 100%;
@@ -147,7 +155,30 @@ table {
     opacity: 0.54 !important;
     transform: translateY(0) !important;
   }
+
+  /* SNACKBAR */
+  %text-white { color: white; }
+
+  .mat-simple-snackbar {
+    @extend %text-white;
+    font-family: $Lato-Bold;
+  }
+
+  .mat-simple-snackbar-action { @extend %text-white; }
+
+
+  /* TIMEPICKER */
+  .timepicker__header,
+  .clock-face__number > span.active { background-color: #ff6d64 !important; }
+
+  .ng-tns-c9-4 {
+    --clock-hand-color: #ff6d64 !important;
+    --button-color: #ff6d64 !important;
+  }
 }
+
+
+
 
 
 

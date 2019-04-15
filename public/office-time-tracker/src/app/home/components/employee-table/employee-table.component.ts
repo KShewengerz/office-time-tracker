@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import * as moment from 'moment';
+
+import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 
 import { Employee } from '@app/shared/models/employee.model';
 
@@ -26,10 +28,10 @@ export class EmployeeTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'clockIn', 'clockOut', 'active', 'action'];
   dataSource: MatTableDataSource<any>;
   
-  isAddState: boolean;
   isChangeState: any;
   
-  constructor(private homeService: HomeService) {}
+  constructor(private snackBar: MatSnackBar,
+              private homeService: HomeService) {}
   
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -37,48 +39,63 @@ export class EmployeeTableComponent implements OnInit {
   }
   
   showForm(isShow: boolean): void {
-    const data: Employee    = { name: null, clockIn: null, clockOut: null, active: null, action: 'add' };
-  
-    this.isAddState = !this.isAddState;
+    const data: Employee    = { action: 'add', name: null, clockIn: null, clockOut: null, active: false };
     
     this.dataSource.data.unshift(data);
     this.dataSource._updateChangeSubscription();
   }
   
   changeState(action: string, id: number): void {
+    if (!this.isChangeState[id]) this.isChangeState[id] = false;
+    
     this.isChangeState[id] = !this.isChangeState[id];
     
     if (action) {
-      if (action === 'add') {
-        this.isAddState = !this.isAddState;
-        
-        this.dataSource.data.shift();
-        this.dataSource._updateChangeSubscription();
-      }
-      
       this.dataSource.data.map(data => {
         if (data.id === id) data.action = null;
         return data;
       });
+      
+      if (action === 'add') {
+        this.dataSource.data.shift();
+        this.dataSource._updateChangeSubscription();
+      }
     }
   }
   
+  showSnackbar(action: string, error?: boolean): void {
+    const message = error ? 'Please fill in the required fields' : `Successfully ${action} Employee`;
+    this.snackBar.open(message, 'X', { duration: 2000 });
+  }
+  
   save(action: string, body: Employee, index?: number): void {
-    action === 'add'
-      ? this.addEmployee(body)
-      : action === 'edit'
-      ? this.updateEmployee(body, index)
-      : this.deleteEmployee(index);
+    
+    const isEmptyFields = Object.keys(body).some(key => !body[key]);
+    
+    if (isEmptyFields && action) this.showSnackbar(null, true);
+    else {
+      action === 'add'
+        ? this.addEmployee(body)
+        : action === 'edit'
+        ? this.updateEmployee(body, index)
+        : this.deleteEmployee(body.id, index);
+    }
   }
   
   addEmployee(body: Employee): void {
+    body.clockIn  = moment(body.clockIn, ['LT']).format('YYYY-MM-DD h:mm:ss a');
+    body.clockOut = moment(body.clockOut, ['LT']).format('YYYY-MM-DD h:mm:ss a');
+    
+    const { action, ...rest } = body;
+    
     this.homeService
-      .addEmployee(body)
+      .addEmployee(rest)
       .subscribe(({ body }: any) => {
-        this.dataSource.data.splice(0, 1, body);
+        this.dataSource.data.unshift(body);
         this.dataSource._updateChangeSubscription();
-  
+
         this.changeState('add', body.id);
+        this.showSnackbar('Added');
       });
   }
   
@@ -90,17 +107,19 @@ export class EmployeeTableComponent implements OnInit {
         this.dataSource._updateChangeSubscription();
   
         this.changeState('edit', body.id);
+        this.showSnackbar('Updated');
       });
   }
   
-  deleteEmployee(index: number): void {
+  deleteEmployee(id: number, index: number): void {
     this.homeService
-      .deleteEmployee(index)
+      .deleteEmployee(id)
       .subscribe(({ body }: any) => {
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
   
-        this.changeState(null, body.id);
+        this.changeState('delete', body.id);
+        this.showSnackbar('Deleted');
       });
   }
   

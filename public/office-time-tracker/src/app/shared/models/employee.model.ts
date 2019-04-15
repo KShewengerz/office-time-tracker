@@ -1,8 +1,8 @@
 export interface Employee {
   id?: number;
   name: string;
-  clockIn: Date;
-  clockOut: Date;
+  clockIn: string;
+  clockOut: string;
   active: boolean;
   
   action?: string;

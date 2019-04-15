@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { SharedModule } from '@app/shared/shared.module';
 import { HomeMaterialModule } from '@app/home/home-material.module';
@@ -13,6 +16,8 @@ import { AddEmployeeBtnComponent } from '@app/home/components/employee-table/com
 
 @NgModule({
   imports: [
+    FormsModule,
+    NgxMaterialTimepickerModule,
     SharedModule,
     HomeMaterialModule,
     HomeRoutingModule
