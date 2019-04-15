@@ -53,7 +53,7 @@ export class EmployeeTableComponent implements OnInit {
     this.dataSource.data.map(data => data.id === id ? Object.assign(data, { action: 'edit' }) : data);
   }
   
-  changeState(action: string, id: number, isProcessed?: boolean): void {
+  changeState({ action, id }, isProcessed?: boolean): void {
     if (!this.isChangeState[id] && action === 'add') this.isChangeState[id] = true;
     
     this.isChangeState[id] = !this.isChangeState[id];
@@ -69,10 +69,10 @@ export class EmployeeTableComponent implements OnInit {
     }
   }
   
-  save(action: string, body: Employee, index?: number): void {
+  save({ body, index }): void {
     const isEmptyFields = Object.keys(body).some(key => key !== 'active' ? !body[key] : false);
     
-    if (isEmptyFields && action) this.showSnackbar(null, true);
+    if (isEmptyFields && body.action) this.showSnackbar(null, true);
     else {
       body.clockIn  = moment(body.clockIn, ['LT']).format('YYYY-MM-DD h:mm:ss a');
       body.clockOut = moment(body.clockOut, ['LT']).format('YYYY-MM-DD h:mm:ss a');
@@ -129,7 +129,7 @@ export class EmployeeTableComponent implements OnInit {
   }
   
   setStateandSnackbar(id: number, action: string, title: string, isProcessed?: boolean): void {
-    this.changeState(action, id, isProcessed);
+    this.changeState({ action, id }, isProcessed);
     this.showSnackbar(title);
   }
   

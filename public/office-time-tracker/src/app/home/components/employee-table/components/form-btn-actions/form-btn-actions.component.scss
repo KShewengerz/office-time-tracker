@@ -1,0 +1,55 @@
+@import 'base/typography';
+@import 'utils/mixins';
+
+
+/* TABLE ACTION ICONS */
+.mat-icon {
+  @include icon(17px);
+
+  margin-right: 15px;
+  cursor: pointer;
+
+  &:first-child { color: #ea4624; }
+
+  &:last-child { color: #c13136; }
+}
+
+td.active {
+  color: white;
+  background-color: #de5d56;
+
+  .mat-icon {
+    color: white;
+    font-weight: bold;
+
+    &:hover { transform: scale(1.2); }
+  }
+}
+
+th {
+  color: #000000ab;
+  font-family: $Lato-Bold;
+  font-weight: bold;
+  height: 65px;
+}
+
+th, td {
+
+  @include media(425px) {
+    & { width: 100vw !important; }
+  }
+
+  &:not(:last-of-type) {
+    overflow: hidden;
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:first-child { width: 300px; }
+
+  &:last-of-type {
+    width: 100px;
+    text-align: center;
+  }
+}

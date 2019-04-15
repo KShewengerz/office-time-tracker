@@ -129,16 +129,13 @@
               [class.active]="(isChangeState[element.id] || element.action) && isFormActivated"
               *matCellDef="let element; let i = index">
 
-            <span *ngIf="(!isChangeState[element.id] || !element.action) && !isFormActivated">
-              <mat-icon (click)="showEditForm(element.id)">edit</mat-icon>
-              <mat-icon (click)="changeState(element.action, element.id)">delete</mat-icon>
-            </span>
-
-            <span [hidden]="!isChangeState[element.id] && !element.action || !isFormActivated">
-              <mat-icon (click)="save(element.action, element, i)">done</mat-icon>
-              <mat-icon (click)="changeState(element.action, element.id)">clear</mat-icon>
-            </span>
-
+            <app-form-btn-actions [isChangeState]="isChangeState[element.id]"
+                                  [element]="element"
+                                  [isFormActivated]="isFormActivated"
+                                  [index]="i"
+                                  (activateEditForm)="showEditForm($event)"
+                                  (activateState)="changeState($event)"
+                                  (saveChanges)="save($event)"></app-form-btn-actions>
           </td>
         </ng-container>
 

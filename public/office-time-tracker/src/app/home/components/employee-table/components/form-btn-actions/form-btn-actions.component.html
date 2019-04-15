@@ -1,0 +1,9 @@
+<span *ngIf="(!isChangeState || !element.action) && !isFormActivated">
+              <mat-icon (click)="activateEditForm.next(element.id)">edit</mat-icon>
+              <mat-icon (click)="activateState.next({ action: element.action, id: element.id })">delete</mat-icon>
+            </span>
+
+<span [hidden]="!isChangeState && !element.action || !isFormActivated">
+              <mat-icon (click)="saveChanges.next({ body: element, index: index })">done</mat-icon>
+              <mat-icon (click)="activateState.next({ action: element.action, id: element.id })">clear</mat-icon>
+            </span>
