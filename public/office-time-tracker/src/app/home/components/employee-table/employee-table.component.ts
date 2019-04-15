@@ -69,11 +69,6 @@ export class EmployeeTableComponent implements OnInit {
     }
   }
   
-  showSnackbar(action: string, error?: boolean): void {
-    const message = error ? 'Please fill in the required fields' : `Successfully ${action} Employee`;
-    this.snackBar.open(message, 'X', { duration: 2000 });
-  }
-  
   save(action: string, body: Employee, index?: number): void {
     const isEmptyFields = Object.keys(body).some(key => key !== 'active' ? !body[key] : false);
     
@@ -99,9 +94,8 @@ export class EmployeeTableComponent implements OnInit {
         this.dataSource.data.shift();
         this.dataSource.data.unshift(body);
         this.dataSource._updateChangeSubscription();
-
-        this.changeState('add', body.id, true);
-        this.showSnackbar('Added');
+  
+        this.setStateandSnackbar(body.id, 'add', 'Added', true);
       });
   }
   
@@ -113,9 +107,8 @@ export class EmployeeTableComponent implements OnInit {
         this.dataSource._updateChangeSubscription();
         
         this.isChangeState[body.id] = true;
-
-        this.changeState('edit', body.id);
-        this.showSnackbar('Updated');
+        
+        this.setStateandSnackbar(body.id, 'edit', 'Updated');
       });
   }
   
@@ -126,9 +119,18 @@ export class EmployeeTableComponent implements OnInit {
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
   
-        this.changeState('delete', body.id);
-        this.showSnackbar('Deleted');
+        this.setStateandSnackbar(body.id, 'delete', 'Deleted');
       });
+  }
+  
+  showSnackbar(action: string, error?: boolean): void {
+    const message = error ? 'Please fill in the required fields' : `Successfully ${action} Employee`;
+    this.snackBar.open(message, 'X', { duration: 2000 });
+  }
+  
+  setStateandSnackbar(id: number, action: string, title: string, isProcessed?: boolean): void {
+    this.changeState(action, id, isProcessed);
+    this.showSnackbar(title);
   }
   
 }
