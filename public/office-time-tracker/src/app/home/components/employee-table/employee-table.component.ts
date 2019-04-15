@@ -72,7 +72,7 @@ export class EmployeeTableComponent implements OnInit {
   save({ body, index }): void {
     const isEmptyFields = Object.keys(body).some(key => key !== 'active' ? !body[key] : false);
     
-    if (isEmptyFields && body.action) this.showSnackbar(null, true);
+    if (isEmptyFields && body.action) this.showSnackbar(null, 'invalid');
     else {
       body.clockIn  = moment(body.clockIn, ['LT']).format('YYYY-MM-DD h:mm:ss a');
       body.clockOut = moment(body.clockOut, ['LT']).format('YYYY-MM-DD h:mm:ss a');
@@ -90,13 +90,16 @@ export class EmployeeTableComponent implements OnInit {
   addEmployee(body: Employee): void {
     this.homeService
       .addEmployee(body)
-      .subscribe(({ body }: any) => {
-        this.dataSource.data.shift();
-        this.dataSource.data.unshift(body);
-        this.dataSource._updateChangeSubscription();
-  
-        this.setStateandSnackbar(body.id, 'add', 'Added', true);
-      });
+      .subscribe(
+        ({ body }: any) => {
+          this.dataSource.data.shift();
+          this.dataSource.data.unshift(body);
+          this.dataSource._updateChangeSubscription();
+    
+          this.setStateandSnackbar(body.id, 'add', 'Added', 'success', true);
+        },
+        ({ error }) => this.showSnackbar(null, 'duplicate', error.message)
+    );
   }
   
   updateEmployee(body: Employee, index: number): void {
@@ -108,7 +111,7 @@ export class EmployeeTableComponent implements OnInit {
         
         this.isChangeState[body.id] = true;
         
-        this.setStateandSnackbar(body.id, 'edit', 'Updated');
+        this.setStateandSnackbar(body.id, 'edit', 'Updated', 'success');
       });
   }
   
@@ -119,18 +122,23 @@ export class EmployeeTableComponent implements OnInit {
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
   
-        this.setStateandSnackbar(body.id, 'delete', 'Deleted');
+        this.setStateandSnackbar(body.id, 'delete', 'Deleted', 'success');
       });
   }
   
-  showSnackbar(action: string, error?: boolean): void {
-    const message = error ? 'Please fill in the required fields' : `Successfully ${action} Employee`;
-    this.snackBar.open(message, 'X', { duration: 2000 });
+  showSnackbar(action: string, type: string, message?: string): void {
+    const messages = {
+      invalid   : 'Please fill in the required fields',
+      duplicate : `${message} Please change the name`,
+      success   : `Successfully ${action} Employee`
+    };
+    
+    this.snackBar.open(messages[type], 'X', { duration: 3000 });
   }
   
-  setStateandSnackbar(id: number, action: string, title: string, isProcessed?: boolean): void {
+  setStateandSnackbar(id: number, action: string, title: string, type: string, isProcessed?: boolean): void {
     this.changeState({ action, id }, isProcessed);
-    this.showSnackbar(title);
+    this.showSnackbar(title, type);
   }
   
 }
